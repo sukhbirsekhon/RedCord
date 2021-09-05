@@ -1,5 +1,5 @@
 # RedCord
----
+
 ## Introduction  
 
 
@@ -7,15 +7,15 @@ RedCord is a public messaging system that allows users to search through topics,
 
 The user’s posts, comments and likes/dislikes will be added to the user’s records which can be later be viewed under the user’s history. 
 
-
+---
 ## Storyboard  
 
 [Story Board](https://projects.invisionapp.com/prototype/ckasgvpt700kyob01x4gv0q6e/play)
 
 ![ProloggerStoryBoard2_6-9-20](https://user-images.githubusercontent.com/63562613/84225944-714b1980-aaae-11ea-948d-c007674acc25.JPG)
 
-## Requirements  
 ---
+## Requirements  
 #### Scenario  
 
 1. As a person who likes to connect with others on social media, I want to be able to post messages publicly so that I can connect with others with similar interests.
