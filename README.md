@@ -22,25 +22,39 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-1.1 **Given** 
+1.1 **Given** a topic is selected
 <br/>
-**When** 
+**Given** an account is created and logged into
 <br/>
-**Then** 
+**When** clicking on create a new post
+<br/>
+**Then** a section opens allowing text to be written in and submitted
 <br/>  
 
-1.2 **Given** 
+1.2 **Given** a topic is selected
 <br/>
-**When** 
+**Given** an account is created and logged into
 <br/>
-**Then** 
+**Given** the create a new post button was clicked
+<br/>
+**When** pressing the submit button
+<br/>
+**When** text area is empty
+<br/>
+**Then** warning that no text was entered and post not submitted
 <br/>  
 
-1.3 **Given** 
+1.3 **Given** a topic is selected
 <br/>
-**When** 
+**Given** an account is created and logged into
 <br/>
-**Then** 
+**Given** the create a new post button was clicked
+<br/>
+**When** pressing the submit button
+<br/>
+**When** text area is valid
+<br/>
+**Then** post submits and displays under topic
 <br/>  
 
 ---
@@ -50,25 +64,25 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-2.1 **Given** 
+2.1 **Given** posts are currently available
 <br/>
-**When** 
+**When** searching for keywords for question
 <br/>
-**Then** 
+**Then** provides list of posts that are similar to keyword search
 <br/>  
 
-2.2 **Given**
+2.2 **Given** an account is created and logged into
 <br/>
-**When**
+**When** clicking on create a new post button
 <br/>
-**Then**
+**Then** type question into text area and press submit
 <br/>  
 
-2.3 **Given**
+2.3 **Given** an account is created and logged into
 <br/>
-**When**
+**When** a post for a question was submitted
 <br/>
-**Then**
+**Then** other logged in users may comment on post
 <br/>  
 
 ---  
@@ -78,19 +92,19 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-3.1 **Given** 
+3.1 **Given** posts are currently available
 <br/>
-**When** 
+**When** clicking on a topic
 <br/>
-**Then** 
+**Then** I can look through posts with various information
 <br/>  
 
-3.2 **Given** 
+3.2 **Given** posts are currently available
 <br/>
-**When** 
+**When** selecting all posts
 <br/>
-**Then** 
-<br/>  
+**Then** provides list of posts default sorted by newest
+<br/> 
 
 ---   
 #### Scenario  
@@ -99,32 +113,18 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-4.1 **Given** 
+4.1 **Given** an account is created and logged into
 <br/>
-**When** 
+**When** clicking on create a new post button
 <br/>
-**Then** 
+**Then** type information into text area and press submit
 <br/>  
 
-4.2 **Given** 
+4.2 **Given** an account is created and logged into
 <br/>
-**When** 
+**When** a post for a question was submitted
 <br/>
-**Then** 
-<br/>  
-
-4.3 **Given** 
-<br/>
-**When** 
-<br/>
-**Then** 
-<br/>  
-
-4.4 **Given** 
-<br/>
-**When** 
-<br/>
-**Then** 
+**Then** I can comment on post
 <br/>  
 
 ---  
@@ -134,32 +134,32 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-5.1 **Given** 
+5.1 **Given** posts are currently available
 <br/>
-**When** 
+**When** selecting all posts
 <br/>
-**Then** 
+**Then** provides list of posts default sorted by newest
+<br/> 
+
+5.2 **Given** posts are currently available
+<br/>
+**When** clicking on a topic
+<br/>
+**Then** I can look through posts with various information
 <br/>  
 
-5.2 **Given** 
+5.3 **Given** an account is created and logged into
 <br/>
-**When** 
+**When** a post was submitted I wish to comment on
 <br/>
-**Then** 
+**Then** I can comment on the post
 <br/>  
 
-5.3 **Given** 
+5.4 **Given** an account is created and logged into
 <br/>
-**When** 
+**When** I click on the like or dislike button
 <br/>
-**Then** 
-<br/>  
-
-5.4 **Given** 
-<br/>
-**When** 
-<br/>
-**Then** 
+**Then** the like/dislike number will increase and be associated with my account
 <br/>  
 
 ---
