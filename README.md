@@ -10,7 +10,7 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 ---
 ## Storyboard  
 
-[Story Board](https://projects.invisionapp.com/prototype/ckasgvpt700kyob01x4gv0q6e/play)
+[Story Board](https://projects.invisionapp.com/prototype/cktashbi600d4pg019y0hc45x/play)
 
 ![ProloggerStoryBoard2_6-9-20](https://user-images.githubusercontent.com/63562613/84225944-714b1980-aaae-11ea-948d-c007674acc25.JPG)
 
