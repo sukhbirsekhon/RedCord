@@ -165,7 +165,10 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 ---
 ## Class Diagram  
 
-![Prologger_UML_Diagram-ForFinalReview](https://user-images.githubusercontent.com/63562613/83973842-0e436200-a8b7-11ea-901c-38bb967423ce.jpg)
+![redcordUI](https://user-images.githubusercontent.com/54546773/132429515-e3ef9806-e2a1-453d-8b1f-1a372d061492.PNG)
+![redcordService](https://user-images.githubusercontent.com/54546773/132429525-3210cf4f-abc0-4def-8382-9d82c5988cfd.PNG)
+![redcordDAO DTO](https://user-images.githubusercontent.com/54546773/132429533-4a3cafb8-49b3-4b26-b264-6e3b659c0060.PNG)
+
 
 ### Class Diagram Description  
 
