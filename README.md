@@ -170,32 +170,6 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 ![redcordDAO DTO](https://user-images.githubusercontent.com/54546773/132429533-4a3cafb8-49b3-4b26-b264-6e3b659c0060.PNG)
 
 
-### Class Diagram Description  
-
-**MainActivity:**  The first screen the user sees. This will have a list of tasks that were logged or that are to be completed.  
-
-**RetrofitLogInstance:**  Bootstrap class required for Retrofit.   
-
-**ContactsDetailActivity:**  A screen that shows the details of the user contacts.  
-
-**MapDetailActivity:**  A section that handles Map activities.  
-
-**AboutDetailActivity:**  A section that handles About activities.  
-
-**Log:**  Noun class that represents the log.  
-
-**Map:**  Noun class that represents a Map task. 
-
-**Contacts:**  Noun class that represents a contact.  
-
-**AboutDetails:**  Noun class that represents About software and company information.  
-
-**ILogDao:**  Interface for Retrofit to find and parse log data.  
-
-**AppContacts:**  Internal app for Contacts.  
-
-**IMapDAO:**  Internal App for Google Maps.  
-
 ---
 ## JSON Schema
 > {
