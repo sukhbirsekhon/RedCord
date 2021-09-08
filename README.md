@@ -185,9 +185,58 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 ---
 ## JSON Schema
-> {
+>{
 >  "type" : "object",
-> }
+>  "properties" : {
+>    "eventID" : {
+>      "type" : "integer"
+>    },
+>    "topic" : {
+>      "type" : "string"
+>    },
+>    "message" : {
+>      "type" : "string"
+>    },
+>    "messageID" : {
+>      "type" : "integer"
+>    },
+>    "topicID" : {
+>      "type" : "integer"
+>    },
+>    "dateTime" : {
+>      "type" : "object",
+>      "properties" : {
+>        "timezoneOffset" : {
+>          "type" : "integer"
+>        },
+>        "day" : {
+>          "type" : "integer"
+>        },
+>        "hours" : {
+>          "type" : "integer"
+>        },
+>        "minutes" : {
+>          "type" : "integer"
+>        },
+>        "year" : {
+>          "type" : "integer"
+>        },
+>        "time" : {
+>          "type" : "integer"
+>        },
+>        "seconds" : {
+>          "type" : "integer"
+>        },
+>        "date" : {
+>          "type" : "integer"
+>        },
+>        "month" : {
+>          "type" : "integer"
+>        }
+>      }
+>    }
+>  }
+>}
 
 ---
 ## Team Members and Roles  
