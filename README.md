@@ -3,9 +3,7 @@
 ## Introduction  
 
 
-RedCord is a public messaging system that allows users to search through topics, post messages in a topic, and comment on current messages posted. User’s can edit, and delete any post or comment submitted by their account and interact with other posts by liking or disliking the post.
-
-The user’s posts, comments and likes/dislikes will be added to the their records which can be later be viewed under the their history. 
+RedCord is a public messaging system that utilizes microservices for authenticating user accounts, uploading user posts, allocating user likes and dislikes, and services to allow searching of keywords throughout the site. The account information will be stored and accessible upon user authentication. 
 
 ---
 ## Storyboard  
