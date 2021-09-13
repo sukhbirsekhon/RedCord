@@ -64,7 +64,7 @@ RedCord is a public messaging system that utilizes microservices for authenticat
 
 2.1 **Given** posts are currently available
 <br/>
-**When** searching for keywords "Spiderman"
+**When** searching for the keyword "Spiderman"
 <br/>
 **Then** provides list of posts that have the word "Spiderman" referenced in the post
 <br/>  
