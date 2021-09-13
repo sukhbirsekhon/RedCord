@@ -54,7 +54,7 @@ The user’s posts, comments and likes/dislikes will be added to the their recor
 <br/>
 **When** text area has text
 <br/>
-**Then** post submits and displays under topic Sports
+**Then** post submits and displays under topic Movies
 <br/>  
 
 ---
@@ -104,9 +104,9 @@ The user’s posts, comments and likes/dislikes will be added to the their recor
 
 3.1 **Given** posts are currently available
 <br/>
-**When** clicking on a topic
+**When** clicking on the Movies topic
 <br/>
-**Then** I can look through posts with various information
+**Then** All the posts under the movies topic are available to access
 <br/>  
 
 3.2 **Given** posts are currently available
@@ -123,18 +123,31 @@ The user’s posts, comments and likes/dislikes will be added to the their recor
 
 #### Example  
 
-4.1 **Given** an account is created and logged into
+4.1 **Given** the Movies topic is selected
 <br/>
-**When** clicking on create a new post button
+**Given** an account is created and authenticated
 <br/>
-**Then** type information into text area and press submit
+**Given** the create a new post button was clicked
+<br/>
+**When** pressing the submit button
+<br/>
+**When** text area has text
+<br/>
+**Then** post submits and displays under topic Movies
 <br/>  
 
-4.2 **Given** an account is created and logged into
+
+4.2 **Given** an account is created and authenticated
 <br/>
-**When** a post for a question was submitted
+**Given** a post was submitted for a question "What is ironman's civilian name?"
 <br/>
-**Then** I can comment on post
+**When** clicking on the comment button on this post
+<br/>
+**When** adding comment text in text field
+<br/>
+**When** pressing the submit button
+<br/>
+**Then** comment submits and displays under parent post
 <br/>  
 
 ---  
@@ -153,23 +166,29 @@ The user’s posts, comments and likes/dislikes will be added to the their recor
 
 5.2 **Given** posts are currently available
 <br/>
-**When** clicking on a topic
+**When** clicking on the Movies topic
 <br/>
-**Then** I can look through posts with various information
+**Then** provides list of posts located under the Movies topic category
 <br/>  
 
-5.3 **Given** an account is created and logged into
+5.3 **Given** an account is created and authenticated
 <br/>
-**When** a post was submitted I wish to comment on
+**When** interested in commenting on a post
 <br/>
-**Then** I can comment on the post
+**When** clicking on the comment button on this post
+<br/>
+**When** adding comment text in text field
+<br/>
+**When** pressing the submit button
+<br/>
+**Then** comment submits and displays under parent post
 <br/>  
 
-5.4 **Given** an account is created and logged into
+5.4 **Given** an account is created and authenticated
 <br/>
-**When** I click on the like or dislike button
+**When** clicking on the like or dislike button
 <br/>
-**Then** the like/dislike number will increase and be associated with my account
+**Then** the like/dislike number will increase and be associated with the account that generated it
 <br/>  
 
 ---
@@ -267,6 +286,6 @@ Tuesdays at 9:00 PM and Thursdays at 10:00 PM. Use Microsoft Teams:
 <br/>
 Meeting Information Meeting link:
 <br/>
-https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDQ5ZWQzYmQtYTEwOS00YjQ1LWFhZWQtNTczYmRlZWFjMTVl%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%22677a8abf-57d8-44bb-af5e-78efb1341f8a%22%7d
+https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmEwNDY4YTMtOTFmNi00ZmRlLTkyMzMtOGFjYWE1NTQ0YzFi%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%22677a8abf-57d8-44bb-af5e-78efb1341f8a%22%7d
 <br/>
 
