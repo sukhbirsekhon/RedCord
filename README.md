@@ -165,9 +165,9 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 ---
 ## Class Diagram  
 
-![redcordDAO&DTO (1).pdf](https://github.com/sukhbirsekhon/RedCord/files/7157652/redcordDAO.DTO.1.pdf)
-![redcordService (2).pdf](https://github.com/sukhbirsekhon/RedCord/files/7157653/redcordService.2.pdf)
-![redcordUI (1).pdf](https://github.com/sukhbirsekhon/RedCord/files/7157654/redcordUI.1.pdf)
+![redcordService](https://user-images.githubusercontent.com/54546773/133164792-fffd0052-9d75-470a-aeaa-2050c9eb60b9.png)
+![redcordDAO DTO](https://user-images.githubusercontent.com/54546773/133164793-69d65734-8e11-4625-a214-4987fe9eb892.png)
+![redcordUI](https://user-images.githubusercontent.com/54546773/133164795-0e47286f-348d-4667-8f48-730bc6c56531.png)
 
 ### Class Diagram Description  
 
