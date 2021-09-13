@@ -5,7 +5,7 @@
 
 RedCord is a public messaging system that allows users to search through topics, post messages in a topic, and comment on current messages posted. User’s can edit, and delete any post or comment submitted by their account and interact with other posts by liking or disliking the post.
 
-The user’s posts, comments and likes/dislikes will be added to the user’s records which can be later be viewed under the user’s history. 
+The user’s posts, comments and likes/dislikes will be added to the their records which can be later be viewed under the their history. 
 
 ---
 ## Storyboard  
@@ -22,18 +22,18 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 #### Example  
 
-1.1 **Given** a topic is selected
+1.1 **Given** the Movies topic is selected
 <br/>
-**Given** an account is created and logged into
+**Given** an account is created and authenticated
 <br/>
 **When** clicking on create a new post
 <br/>
 **Then** a section opens allowing text to be written in and submitted
 <br/>  
 
-1.2 **Given** a topic is selected
+1.2 **Given** the Movies topic is selected
 <br/>
-**Given** an account is created and logged into
+**Given** an account is created and authenticated
 <br/>
 **Given** the create a new post button was clicked
 <br/>
@@ -44,17 +44,17 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 **Then** warning that no text was entered and post not submitted
 <br/>  
 
-1.3 **Given** a topic is selected
+1.3 **Given** the Movies topic is selected
 <br/>
-**Given** an account is created and logged into
+**Given** an account is created and authenticated
 <br/>
 **Given** the create a new post button was clicked
 <br/>
 **When** pressing the submit button
 <br/>
-**When** text area is valid
+**When** text area has text
 <br/>
-**Then** post submits and displays under topic
+**Then** post submits and displays under topic Sports
 <br/>  
 
 ---
@@ -66,23 +66,33 @@ The user’s posts, comments and likes/dislikes will be added to the user’s re
 
 2.1 **Given** posts are currently available
 <br/>
-**When** searching for keywords for question
+**When** searching for keywords "Spiderman"
 <br/>
-**Then** provides list of posts that are similar to keyword search
+**Then** provides list of posts that have the word "Spiderman" referenced in the post
 <br/>  
 
-2.2 **Given** an account is created and logged into
+2.2 **Given** the Movies topic is selected
+<br/>
+**Given** an account is created and authenticated
 <br/>
 **When** clicking on create a new post button
 <br/>
-**Then** type question into text area and press submit
-<br/>  
+**When** typing "Who is the actor who plays as Spiderman?" question into text area and pressing submit
+<br/> 
+**Then** adds post of submitted question "Who is the actor who plays as Spiderman?"
+<br/> 
 
-2.3 **Given** an account is created and logged into
+2.3 **Given** an account is created and authenticated
 <br/>
-**When** a post for a question was submitted
+**Given** a post was submitted for a question "What is ironman's civilian name?"
 <br/>
-**Then** other logged in users may comment on post
+**When** clicking on the comment button on this post
+<br/>
+**When** adding comment text in text field
+<br/>
+**When** pressing the submit button
+<br/>
+**Then** comment submits and displays under parent post
 <br/>  
 
 ---  
