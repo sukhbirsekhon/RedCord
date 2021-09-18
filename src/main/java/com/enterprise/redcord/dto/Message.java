@@ -5,7 +5,7 @@ import lombok.Data;
 
 public @Data
 class Message {
-    @SerializedName("MessageID") private Integer TopicID;
-    @SerializedName("UserID") private Integer UserID;
-    @SerializedName("Message") private String Message;
+     private int TopicID;
+     private int UserID;
+     private String Message;
 }
