@@ -7,7 +7,11 @@ import com.enterprise.redcord.service.ITopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class RedCordController {
@@ -23,15 +27,15 @@ public class RedCordController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        Message message = new Message();
-        model.addAttribute(message);
+        Message messageEntry = new Message();
+        model.addAttribute(messageEntry);
         return "start";
     }
     
     
     
     @RequestMapping("/saveTopic")
-    public String index(Topic topic) {
+    public String saveTopic(Topic topic) {
        try {
            topicService.save(topic);
        }catch(Exception e){
@@ -40,7 +44,21 @@ public class RedCordController {
         return "start";
     }
 
+    @RequestMapping("/saveMessage")
+    public String saveMessage(Message messageEntry) {
+        try {
+            messageService.save(messageEntry);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "start";
+    }
 
+    @GetMapping("/allMessages")
+    @ResponseBody
+    public List<Message> fetchAllMessages() {
+        return messageService.fetchAllMessages();
+    }
 
 
 

@@ -7,18 +7,27 @@ import com.enterprise.redcord.dto.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageServiceStub implements IMessageService{
 
     @Autowired
     private IMessageDAO messageDAO;
 
-    public MessageServiceStub(IMessageDAO messageDAO) {
-        this.messageDAO = messageDAO;
-
-    }
+//    public MessageServiceStub(IMessageDAO messageDAO) {
+//        this.messageDAO = messageDAO;
+//
+//    }
     @Override
-    public Message save(Message message) throws Exception {
-        return messageDAO.save(message);
+    public Message save(Message messageEntry) throws Exception {
+        return messageDAO.save(messageEntry);
     }
+
+    @Override
+    public List<Message> fetchAllMessages() {
+        return messageDAO.fetchAllMessages();
+    }
+
+
 }

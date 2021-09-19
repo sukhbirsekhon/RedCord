@@ -7,11 +7,15 @@
 <body>
 Our Project is Amazing!
 
-<form action="#" th:action="@{/saveMessage}" th:object="${Message}" method="GET">
+
+
+<p th:text="${message}"></p>
+<form action="#" th:action="@{/saveMessage}" th:object="${messageEntry}" method="GET">
     <label>Message</label><textarea th:field="*{message}"></textarea>
     <br /><br />
     <button name="submit" type="submit" value="0">Post Entry</button>
 </form>
+
 
 </body>
 </html>
