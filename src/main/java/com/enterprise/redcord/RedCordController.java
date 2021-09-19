@@ -45,7 +45,7 @@ public class RedCordController {
     @RequestMapping("/saveMessage")
     public String saveMessage(Message messageEntry) {
         try {
-            messageService.save(messageEntry);
+            messageService.saveMessage(messageEntry);
         }catch(Exception e){
             e.printStackTrace();
         }

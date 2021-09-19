@@ -14,10 +14,14 @@ public class TopicServiceStub implements ITopicService{
     @Autowired
     private ITopicDAO topicDAO;
 
-    public TopicServiceStub(ITopicDAO topicDAO) {
+    public TopicServiceStub(){
 
+    }
+
+    public TopicServiceStub(ITopicDAO topicDAO) {
         this.topicDAO = topicDAO;
     }
+
     @Override
     public Topic save(Topic topic) throws Exception {
         return topicDAO.save(topic);

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IMessageService {
 
-    Message save(Message message) throws Exception;
+    Message saveMessage(Message message) throws Exception;
 
     List<Message> fetchAllMessages();
 }

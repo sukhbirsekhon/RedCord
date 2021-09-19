@@ -1,6 +1,7 @@
 package com.enterprise.redcord.dao;
 
 import com.enterprise.redcord.dto.Message;
+import com.enterprise.redcord.service.MessageServiceStub;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
@@ -15,7 +16,7 @@ public class MessageDAOStub implements IMessageDAO{
     Map<Integer, Message> allMessages = new HashMap<>();
 
     @Override
-    public Message save(Message messageEntry) throws Exception {
+    public Message saveMessage(Message messageEntry) {
         List<Message> allMessageList = new ArrayList(allMessages.values());
         int latestMessageId = 0;
         int allMessageSize = allMessageList.size();

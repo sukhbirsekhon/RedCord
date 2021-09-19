@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IMessageDAO {
 
-    Message save(Message message) throws Exception;
+    Message saveMessage(Message message) throws Exception;
 
     List<Message> fetchAllMessages();
 }
