@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface IMessageDAO {
 
     Message save(Message message) throws Exception;

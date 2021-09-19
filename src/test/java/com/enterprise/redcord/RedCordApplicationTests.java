@@ -30,8 +30,8 @@ class RedCordApplicationTests {
 
     private void saveTopic() throws Exception  {
         Topic worldFirst = new Topic();
-        topic.setTopicID(1);
-        topic.setUserID(1);
+        topic.setTopicId(1);
+        topic.setUserId(1);
         topic.setTitle("My 1st Topic");
         topic.setMessage("First or last WaaaaOOOOO");
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);

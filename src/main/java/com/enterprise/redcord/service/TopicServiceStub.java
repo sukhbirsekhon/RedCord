@@ -3,10 +3,12 @@ package com.enterprise.redcord.service;
 import com.enterprise.redcord.dao.ITopicDAO;
 import com.enterprise.redcord.dto.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Component
 public class TopicServiceStub implements ITopicService{
 
     @Autowired

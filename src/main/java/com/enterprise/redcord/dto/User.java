@@ -5,10 +5,10 @@ import lombok.Data;
 
 public @Data
 class User{
-    @SerializedName("UserID") private Integer UserID;
-    @SerializedName("UserName") private String UserName;
-    @SerializedName("Password") private String Password;
-    @SerializedName("Email") private String Email;
-    @SerializedName("Status") private String Status;
+    @SerializedName("userId") private Integer userId;
+    @SerializedName("userName") private String userName;
+    @SerializedName("password") private String password;
+    @SerializedName("email") private String email;
+    @SerializedName("status") private String status;
 }
 
