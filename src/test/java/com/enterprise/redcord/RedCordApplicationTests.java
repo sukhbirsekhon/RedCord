@@ -65,7 +65,7 @@ class RedCordApplicationTests {
     }
 
     private void saveTopic() throws Exception  {
-        Topic worldFirst = new Topic();
+
         topic.setTopicId(1);
         topic.setUserId(1);
         topic.setTitle("My 1st Topic");
