@@ -58,6 +58,10 @@ public class RedCordController {
         return messageService.fetchAllMessages();
     }
 
-
-
+//test
+@GetMapping("/allMessages")
+@ResponseBody
+public List<Message> fetcshAllMessages() {
+    return messageService.fetchAllMessages();
+}
 }
