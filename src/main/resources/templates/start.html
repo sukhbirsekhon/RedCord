@@ -8,8 +8,6 @@
 <body>
 Our Project is Amazing!
 
-
-
 <p th:text="${message}"></p>
 <form action="#" th:action="@{/saveMessage}" th:object="${message}" method="GET">
     <label>Message</label><textarea th:field="*{message}"></textarea>
