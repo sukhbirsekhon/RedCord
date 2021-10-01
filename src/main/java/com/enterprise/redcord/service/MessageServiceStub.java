@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 @Component
@@ -30,7 +31,7 @@ public class MessageServiceStub implements IMessageService{
     }
 
     @Override
-    public List<Message> fetchAllMessages() {
+    public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
         return messageDAO.fetchAllMessages();
     }
 

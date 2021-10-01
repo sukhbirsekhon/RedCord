@@ -1,36 +1,40 @@
 package com.enterprise.redcord.dao;
 
 import com.enterprise.redcord.dto.Message;
-import com.enterprise.redcord.service.MessageServiceStub;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
+import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+
 
 @Component
 public class MessageDAOStub implements IMessageDAO{
 
-    Map<Integer, Message> allMessages = new HashMap<>();
+    //Map<Integer, Message> allMessages = new HashMap<>();
 
     @Override
-    public Message saveMessage(Message messageEntry) {
-        List<Message> allMessageList = new ArrayList(allMessages.values());
-        int latestMessageId = 0;
-        int allMessageSize = allMessageList.size();
-        if(allMessageSize > 0){
-            Message lastMessage = allMessageList.get(allMessageSize - 1);
-            latestMessageId = lastMessage.getMessageId();
-        }
-        messageEntry.setMessageId(latestMessageId + 1);
-        allMessages.put(messageEntry.getMessageId(), messageEntry);
+    public Message saveMessage(Message messageEntry) throws InterruptedException, ExecutionException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference document = dbFirestore.collection("Messages").document();
+        messageEntry.setMessageId(document.getId());
+        ApiFuture<WriteResult> collectionsApiFuture = document.set(messageEntry);
         return messageEntry;
     }
 
     @Override
-    public List<Message> fetchAllMessages() {
+    public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
+        Map<String, Object> allMessages = new HashMap<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        ApiFuture<QuerySnapshot> collectionsApiFuture = dbFirestore.collection("Messages").get();
+        List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
+        for(QueryDocumentSnapshot document : documents){
+            allMessages.put(document.getId(), document.getData());
+        }
+
         return new ArrayList(allMessages.values());
     }
 }

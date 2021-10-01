@@ -4,12 +4,14 @@ import com.enterprise.redcord.dto.Message;
 import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class RedCordController {
@@ -20,18 +22,19 @@ public class RedCordController {
     IMessageService messageService;
 
     /**
-     * Handle the root (/) endpoint and return a start page
-     * @return
+     * Handle the root (/) endpoint
+     * @return the start.html location
      */
     @RequestMapping("/")
     public String index(Model model) {
-        Message messageEntry = new Message();
-        model.addAttribute(messageEntry);
+        model.addAttribute("messageEntry", new Message());
         return "start";
     }
-    
-    
-    
+
+    /**
+     * Handle the root (/saveTopic) endpoint
+     * @return the start.html location
+     */
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
        try {
@@ -42,22 +45,36 @@ public class RedCordController {
         return "start";
     }
 
-    @RequestMapping("/saveMessage")
-    public String saveMessage(Message messageEntry) {
+    /**
+     * Handle the /saveMessage POST method endpoint
+     * @return the start.html location
+     */
+    @PostMapping(value="/saveMessage")
+    public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
+        Message newMessage = null;
         try {
-            messageService.saveMessage(messageEntry);
+            newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
             e.printStackTrace();
         }
         return "start";
     }
 
-    @GetMapping("/allMessages")
+    /**
+     * Handle the /allMessages GET method endpoint
+     * @return the JSON data page with all entries present
+     */
+/*    @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() {
         return messageService.fetchAllMessages();
-    }
+    }*/
 
+    @GetMapping("/allMessages")
+    @ResponseBody
+    public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
+        return messageService.fetchAllMessages();
+    }
 
 
 }

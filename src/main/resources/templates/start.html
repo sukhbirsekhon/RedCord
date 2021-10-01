@@ -8,11 +8,14 @@
 <body>
 Our Project is Amazing!
 
-<p th:text="${message}"></p>
-<form action="#" th:action="@{/saveMessage}" th:object="${message}" method="GET">
-    <label>Message</label><textarea th:field="*{message}"></textarea>
+<p th:text="${messageEntry}"></p>
+<form action="#" th:action="@{/saveMessage}" th:object="${messageEntry}" method="post">
+    <label for="messageField">Message</label><textarea rows="20" cols="100" id="messageField" name="messageField" th:field="*{message}"></textarea>
     <br /><br />
     <button name="submit" type="submit" value="0">Post Entry</button>
+</form>
+<form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
+    <button name="submit" type="submit" value="0">View All Posts</button>
 </form>
 
 </body>
