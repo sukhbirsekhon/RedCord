@@ -59,12 +59,12 @@ class RedCordApplicationTests {
 
 
     @Test
-    void save_fetch() throws Exception  {
-        saveTopic();
-        assertSaved();
+    void saveTopicThenValidate() throws Exception  {
+        whenSaveTopic();
+        thenAssertSaved();
     }
 
-    private void saveTopic() throws Exception  {
+    private void whenSaveTopic() throws Exception  {
 
         topic.setTopicId(1);
         topic.setUserId(1);
@@ -73,7 +73,7 @@ class RedCordApplicationTests {
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);
     }
 
-    private void assertSaved() throws Exception  {
+    private void thenAssertSaved() throws Exception  {
         String message = topic.getMessage();
         assertEquals("First or last WaaaaOOOOO", message);
     }
