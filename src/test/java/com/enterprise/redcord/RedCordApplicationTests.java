@@ -70,7 +70,7 @@ class RedCordApplicationTests {
         topic.setUserId(1);
         topic.setTitle("My 1st Topic");
         topic.setMessage("First or last WaaaaOOOOO");
-        Mockito.when(topicDAO.save(topic)).thenReturn(topic);
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
     }
 
     private void assertSaved() throws Exception  {

@@ -35,7 +35,7 @@ public class RedCordController {
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
        try {
-           topicService.save(topic);
+           topicService.saveTopic(topic);
        }catch(Exception e){
            e.printStackTrace();
         }

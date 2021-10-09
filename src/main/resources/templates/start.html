@@ -12,6 +12,14 @@ Our Project is Amazing!
 <form action="#" th:action="@{/saveMessage}" th:object="${message}" method="GET">
     <label>Message</label><textarea th:field="*{message}"></textarea>
     <br /><br />
+    <label >Choose a Topic:</label>
+
+    <select name="topics" id="topics">
+        <option value="1">Politics</option>
+        <option value="2">Sports</option>
+        <option value="3">News</option>
+        <option value="4">Bearcats</option>
+    </select>
     <button name="submit" type="submit" value="0">Post Entry</button>
 </form>
 
