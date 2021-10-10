@@ -34,5 +34,4 @@ public class MessageServiceStub implements IMessageService{
         return messageDAO.fetchAllMessages();
     }
 
-
 }

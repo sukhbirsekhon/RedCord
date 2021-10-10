@@ -5,7 +5,9 @@ import lombok.Data;
 
 public @Data
 class Message {
+
      private int messageId;
      private int userId;
      private String message;
+
 }

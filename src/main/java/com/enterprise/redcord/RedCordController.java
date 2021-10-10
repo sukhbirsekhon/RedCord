@@ -36,17 +36,17 @@ public class RedCordController {
     public String saveTopic(Topic topic) {
        try {
            topicService.save(topic);
-       }catch(Exception e){
+       } catch(Exception e) {
            e.printStackTrace();
-        }
-        return "start";
+       }
+       return "start";
     }
 
     @RequestMapping("/saveMessage")
     public String saveMessage(Message messageEntry) {
         try {
             messageService.saveMessage(messageEntry);
-        }catch(Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return "start";
@@ -57,7 +57,5 @@ public class RedCordController {
     public List<Message> fetchAllMessages() {
         return messageService.fetchAllMessages();
     }
-
-
 
 }
