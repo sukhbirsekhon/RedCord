@@ -6,6 +6,8 @@ import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ public class RedCordController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("messageEntry", new Message());
+        //model.addAttribute("messageEntry", new Message());
         return "start";
     }
 
@@ -43,6 +45,12 @@ public class RedCordController {
            e.printStackTrace();
         }
         return "start";
+    }
+
+    @GetMapping("/newMessage")
+    public String newOrder(Model model){
+        model.addAttribute("messageEntry", new Message());
+        return "newMessage";
     }
 
     /**
@@ -64,17 +72,20 @@ public class RedCordController {
      * Handle the /allMessages GET method endpoint
      * @return the JSON data page with all entries present
      */
-/*    @GetMapping("/allMessages")
-    @ResponseBody
-    public List<Message> fetchAllMessages() {
-        return messageService.fetchAllMessages();
-    }*/
-
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
         return messageService.fetchAllMessages();
     }
 
+    /**
+     * Handle the /searchJournalEntry GET method endpoint
+     * @return results of the user input for search field
+     */
+    @GetMapping("/searchMessageEntry")
+    public ResponseEntity searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry){
+        String newSearchEntry = searchEntry + "";
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

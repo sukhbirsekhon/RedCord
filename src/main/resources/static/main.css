@@ -1,0 +1,33 @@
+.outer {
+    width:100%;
+    display: flex;
+    margin-left: 50px;
+    /*justify-content: center;*/
+}
+
+.outerSearch {
+    border: 2px solid #000000;
+    width:100%;
+    display: flex;
+    justify-content: right;
+}
+
+.inner {
+    text-align: left;
+}
+.innerSearch {
+    border: 2px solid #00A4BD;
+    text-align: right;
+    margin-right: 100px;
+}
+
+.notesLabel {
+    padding-right: 10px;
+    vertical-align: top;
+}
+
+.dateLabel {
+    padding-right: 60px;
+}
+
+
