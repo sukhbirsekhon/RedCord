@@ -55,7 +55,14 @@ public class RedCordController {
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() {
-        return messageService.fetchAllMessages();
+
+        logger.trace("Accessed fetchAllMessages method in RedCordController.");
+        try {
+            return messageService.fetchAllMessages();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
