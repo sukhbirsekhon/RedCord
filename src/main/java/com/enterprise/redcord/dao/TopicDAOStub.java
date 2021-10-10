@@ -15,7 +15,12 @@ public class TopicDAOStub implements ITopicDAO {
 
     @Override
     public Topic save(Topic topic) throws Exception {
-        allTopics.put(topic.getTopicId(), topic);
+        try {
+            allTopics.put(topic.getTopicId(), topic);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
         return topic;
     }
 }

@@ -25,7 +25,11 @@ public class MessageDAOStub implements IMessageDAO{
             latestMessageId = lastMessage.getMessageId();
         }
         messageEntry.setMessageId(latestMessageId + 1);
-        allMessages.put(messageEntry.getMessageId(), messageEntry);
+        try {
+            allMessages.put(messageEntry.getMessageId(), messageEntry);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return messageEntry;
     }
 
