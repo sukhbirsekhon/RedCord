@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-@Component
 public class TopicDAOStub implements ITopicDAO {
 
     Map<Integer, Topic> allTopics = new HashMap<>();

@@ -1,10 +1,11 @@
 package com.enterprise.redcord.service;
 
 import com.enterprise.redcord.dto.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//implements IMessageService
+@Service
 public class UserServiceStub implements IUserService{
     @Override
     public User saveUser(User user) throws Exception {
