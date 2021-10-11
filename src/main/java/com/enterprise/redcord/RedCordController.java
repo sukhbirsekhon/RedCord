@@ -21,7 +21,7 @@ public class RedCordController {
 
     /**
      * Handle the root (/) endpoint and return a start page
-     * @return
+     * @return /start
      */
     @RequestMapping("/")
     public String index(Model model) {
@@ -29,9 +29,13 @@ public class RedCordController {
         model.addAttribute(messageEntry);
         return "start";
     }
-    
-    
-    
+
+
+    /**
+     * @param topic from data containing user created Topic
+     * @return /start
+     */
+    //Endpoint called
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
        try {
@@ -42,6 +46,10 @@ public class RedCordController {
         return "start";
     }
 
+    /**
+     * @param messageEntry Message created via form on index page
+     * @return /start
+     */
     @RequestMapping("/saveMessage")
     public String saveMessage(Message messageEntry) {
         try {
@@ -52,6 +60,11 @@ public class RedCordController {
         return "start";
     }
 
+
+    /**
+     * The /allMessages enpoint returns a JSON file containing all Message data stored.
+     * @return JSON page containing all Message data via fetchAllMessages()
+     */
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() {
