@@ -8,4 +8,5 @@ class Message {
      private String messageId;
      private String userId;
      private String message;
+
 }

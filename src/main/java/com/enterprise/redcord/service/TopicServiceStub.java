@@ -26,4 +26,5 @@ public class TopicServiceStub implements ITopicService{
     public Topic save(Topic topic) throws Exception {
         return topicDAO.save(topic);
     }
+
 }

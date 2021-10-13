@@ -18,4 +18,5 @@ public class TopicDAOStub implements ITopicDAO {
         allTopics.put(topic.getTopicId(), topic);
         return topic;
     }
+
 }
