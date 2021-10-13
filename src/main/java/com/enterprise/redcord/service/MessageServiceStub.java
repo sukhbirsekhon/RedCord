@@ -35,5 +35,14 @@ public class MessageServiceStub implements IMessageService{
         return messageDAO.fetchAllMessages();
     }
 
+    @Override
+    public List<Message> fetchById(String id) throws ExecutionException, InterruptedException {
+        return messageDAO.fetchById(id);
+    }
+
+    @Override
+    public void delete(String id) {
+        messageDAO.delete(id);
+    }
 
 }

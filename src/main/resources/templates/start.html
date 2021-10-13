@@ -26,6 +26,24 @@
         <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
             <button name="submit" type="submit" value="0">View All Messages</button>
         </form>
+
+        <br /><br /><br /><br />
+        <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="messageById">Enter Message Id</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">
+            </div>
+            <button name="submit" type="submit" value="0">Find Message by Id</button>
+        </form>
+
+        <br /><br /><br /><br />
+        <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="deleteMessageById">Enter Message Id</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">
+            </div>
+            <button name="submit" type="submit" value="0">Delete Message by Id</button>
+        </form>
     </div>
 </div>
 
