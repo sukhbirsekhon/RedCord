@@ -53,7 +53,7 @@ class RedCordApplicationTests {
     }
 
     private void whenUserSubmitsANewMessage() {
-        messageEntry.setMessageId(1);
+        messageEntry.setMessageId("1");
         messageEntry.setMessage("My First Posted Message");
     }
 

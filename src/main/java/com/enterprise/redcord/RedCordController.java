@@ -4,14 +4,18 @@ import com.enterprise.redcord.dto.Message;
 import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class RedCordController {
@@ -24,20 +28,21 @@ public class RedCordController {
     IMessageService messageService;
 
     /**
-     * Handle the root (/) endpoint and return a start page
-     * @return
+     * Handle the root (/) endpoint
+     * @return the start.html location
      */
     @RequestMapping("/")
     public String index(Model model) {
-        Message messageEntry = new Message();
-
         logger.trace("Accessed index method in RedCordController.");
+        model.addAttribute("messageEntry", new Message());
 
-        model.addAttribute(messageEntry);
         return "start";
     }
 
-    
+    /**
+     * Handle the root (/saveTopic) endpoint
+     * @return the start.html location
+     */
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
        logger.trace("Accessed savedTopic method in RedCordController.");
@@ -51,8 +56,18 @@ public class RedCordController {
        return "start";
     }
 
-    @RequestMapping("/saveMessage")
-    public String saveMessage(Message messageEntry) {
+    @GetMapping("/newMessage")
+    public String newOrder(Model model){
+        model.addAttribute("messageEntry", new Message());
+        return "newMessage";
+    }
+
+    /**
+     * Handle the /saveMessage POST method endpoint
+     * @return the start.html location
+     */
+    @PostMapping(value="/saveMessage")
+    public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
         logger.trace("Accessed saveMessage method in RedCordController.");
 
         try {
@@ -64,11 +79,14 @@ public class RedCordController {
         return "start";
     }
 
+    /**
+     * Handle the /allMessages GET method endpoint
+     * @return the JSON data page with all entries present
+     */
     @GetMapping("/allMessages")
     @ResponseBody
-    public List<Message> fetchAllMessages() {
+    public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
         logger.trace("Accessed fetchAllMessages method in RedCordController.");
-
         try {
             return messageService.fetchAllMessages();
         } catch (Exception e) {
@@ -76,6 +94,16 @@ public class RedCordController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Handle the /searchJournalEntry GET method endpoint
+     * @return results of the user input for search field
+     */
+    @GetMapping("/searchMessageEntry")
+    public ResponseEntity searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry){
+        String newSearchEntry = searchEntry + "";
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
