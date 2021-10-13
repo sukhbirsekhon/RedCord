@@ -13,9 +13,11 @@ public interface IMessageDAO {
      */
     Message saveMessage(Message message) throws Exception;
 
+
     /**
      * Return all message entries.
      * @return a collection of all message entries.
      */
     List<Message> fetchAllMessages() throws ExecutionException, InterruptedException;
+
 }

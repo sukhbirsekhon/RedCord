@@ -7,8 +7,6 @@ import java.util.concurrent.ExecutionException;
 
 
 public interface IMessageService {
-
     Message saveMessage(Message message) throws Exception;
-
     List<Message> fetchAllMessages() throws ExecutionException, InterruptedException;
 }

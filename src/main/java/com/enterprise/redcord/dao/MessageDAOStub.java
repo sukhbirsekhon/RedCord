@@ -1,13 +1,13 @@
 package com.enterprise.redcord.dao;
 
 import com.enterprise.redcord.dto.Message;
+
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
-import java.util.concurrent.ExecutionException;
+
 
 
 @Component
@@ -21,6 +21,7 @@ public class MessageDAOStub implements IMessageDAO{
         DocumentReference document = dbFirestore.collection("Messages").document();
         messageEntry.setMessageId(document.getId());
         ApiFuture<WriteResult> collectionsApiFuture = document.set(messageEntry);
+
         return messageEntry;
     }
 
@@ -37,4 +38,5 @@ public class MessageDAOStub implements IMessageDAO{
 
         return new ArrayList(allMessages.values());
     }
+
 }

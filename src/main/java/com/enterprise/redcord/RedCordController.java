@@ -4,7 +4,12 @@ import com.enterprise.redcord.dto.Message;
 import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
+
 import com.google.cloud.firestore.QueryDocumentSnapshot;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +20,8 @@ import java.util.concurrent.ExecutionException;
 
 @Controller
 public class RedCordController {
+
+    Logger logger = LoggerFactory.getLogger(RedCordController.class);
 
     @Autowired
     ITopicService topicService;
@@ -27,9 +34,13 @@ public class RedCordController {
      */
     @RequestMapping("/")
     public String index(Model model) {
+
+        logger.trace("Accessed index method in RedCordController.");
         model.addAttribute("messageEntry", new Message());
+
         return "start";
     }
+
 
     /**
      * Handle the root (/saveTopic) endpoint
@@ -37,13 +48,17 @@ public class RedCordController {
      */
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
+       logger.trace("Accessed savedTopic method in RedCordController.");
+
        try {
            topicService.save(topic);
-       }catch(Exception e){
+       } catch(Exception e) {
+           logger.error("Error in saveTopic method: " + e.getMessage());
            e.printStackTrace();
-        }
-        return "start";
+       }
+       return "start";
     }
+
 
     /**
      * Handle the /saveMessage POST method endpoint
@@ -51,10 +66,13 @@ public class RedCordController {
      */
     @PostMapping(value="/saveMessage")
     public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
+        logger.trace("Accessed saveMessage method in RedCordController.");
+  
         Message newMessage = null;
         try {
             newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
+            logger.error("Error in saveMessage method: " + e.getMessage());
             e.printStackTrace();
         }
         return "start";
@@ -75,6 +93,15 @@ public class RedCordController {
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
         return messageService.fetchAllMessages();
     }
+        logger.trace("Accessed fetchAllMessages method in RedCordController.");
 
+        try {
+            return messageService.fetchAllMessages();
+        } catch (Exception e) {
+            logger.error("Error in fetchAllMessages method: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

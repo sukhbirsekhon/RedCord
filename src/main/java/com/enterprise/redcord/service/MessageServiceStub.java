@@ -34,6 +34,4 @@ public class MessageServiceStub implements IMessageService{
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
         return messageDAO.fetchAllMessages();
     }
-
-
 }
