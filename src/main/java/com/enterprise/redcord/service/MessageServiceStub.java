@@ -30,9 +30,8 @@ public class MessageServiceStub implements IMessageService{
     }
 
     @Override
-    public List<Message> fetchAllMessages() {
+    public List<Message> fetchAllMessages() throws Exception {
         return messageDAO.fetchAllMessages();
     }
-
 
 }

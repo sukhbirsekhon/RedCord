@@ -9,5 +9,6 @@ public interface IMessageDAO {
 
     Message saveMessage(Message message) throws Exception;
 
-    List<Message> fetchAllMessages();
+    List<Message> fetchAllMessages() throws Exception;
+
 }
