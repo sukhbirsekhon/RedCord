@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -30,8 +31,22 @@ public class RedCordController {
      * Handle the root (/) endpoint
      * @return the start.html location
      */
+/*    @RequestMapping("/")
+    public String index(Model model) {
+        model.addAttribute("messageEntry", new Message());
+        return "start";
+    }*/
     @RequestMapping("/")
     public String index(Model model) {
+        List<Message> messages = null;
+        try {
+            messages = messageService.fetchAllMessages();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("messages", messages);
         model.addAttribute("messageEntry", new Message());
         return "start";
     }
@@ -86,9 +101,21 @@ public class RedCordController {
      * @return results of the user input for search field
      */
     @GetMapping("/searchMessageEntry")
-    public ResponseEntity searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry){
-        String newSearchEntry = searchEntry + "";
-        return new ResponseEntity(HttpStatus.OK);
+    public String searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry, Model model) {
+        try {
+            List<Message> messages = messageService.fetchEntry(searchEntry);
+            model.addAttribute("messages", messages);
+            return "searchedMessages";
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "error";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "error";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 
 

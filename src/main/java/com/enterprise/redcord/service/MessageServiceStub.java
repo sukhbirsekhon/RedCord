@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -36,8 +37,13 @@ public class MessageServiceStub implements IMessageService{
     }
 
     @Override
-    public List<Message> fetchById(String id) throws ExecutionException, InterruptedException {
+    public List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException {
         return messageDAO.fetchById(id);
+    }
+
+    @Override
+    public List<Message> fetchEntry(String searchEntry) throws ExecutionException, InterruptedException, IOException {
+        return messageDAO.fetchEntry(searchEntry);
     }
 
     @Override
