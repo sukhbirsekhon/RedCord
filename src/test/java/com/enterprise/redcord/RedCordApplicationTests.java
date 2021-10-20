@@ -68,14 +68,14 @@ class RedCordApplicationTests {
 
         topic.setTopicId(1);
         topic.setUserId(1);
-        topic.setTitle("My 1st Topic");
-        topic.setDescription("First or last WaaaaOOOOO");
+        topic.setTopicName("Test Movies");
+        topic.setTopicDescription("Lets talk about movies");
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);
     }
 
     private void assertSaved()  {
-        String message = topic.getDescription();
-        assertEquals("First or last WaaaaOOOOO", message);
+        String message = topic.getTopicDescription();
+        assertEquals("Lets talk about movies", message);
     }
 
 }

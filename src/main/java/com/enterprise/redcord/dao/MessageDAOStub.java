@@ -78,17 +78,17 @@ public class MessageDAOStub implements IMessageDAO{
         return new ArrayList(allMessages.values());
     }
 
-    /*
+/*
     @Override
     public List<Message> fetchEntry(String searchEntry) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IMessageRetrofitDAO retrofitDAO = retrofitInstance.create(IMessageRetrofitDAO.class);
-        Call<List<Message>> messageById = retrofitDAO.getMessage(searchEntry);
-        Response<List<Message>> execute = messageById.execute();
+        Call<List<Message>> getMessage = retrofitDAO.getMessage(searchEntry);
+        Response<List<Message>> execute = getMessage.execute();
         List<Message> message = execute.body();
         return message;
-    }*/
-
+    }
+*/
     @Override
     public void delete(String id) {
         Firestore dbFirestore = FirestoreClient.getFirestore();

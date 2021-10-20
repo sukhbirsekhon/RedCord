@@ -24,4 +24,26 @@
 
         </div>
     </nav>
+
+    <br/><br/>
+    <div class="outer">
+        <div class="inner">
+            <form class="d-flex" action="#" th:action="@{/searchTopic}" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" size="40" name="searchTopic" id="searchTopic" list="Topic_Name">
+                <datalist id="Topic_Name">
+                    <option value="Movies"></option>
+                    <option value="Sports"></option>
+                    <option value="Food"></option>
+                    <option value="Gaming"></option>
+                    <option value="Comedy"></option>
+                </datalist>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">GoTo</button>
+            </form>
+        </div>
+    </div>
+
 </div>
+
+
+
+

@@ -37,7 +37,7 @@ public class RedCordController {
         return "start";
     }*/
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(value="", required = false, defaultValue="None") String searchEntry, Model model) {
         List<Message> messages = null;
         try {
             messages = messageService.fetchAllMessages();
@@ -66,7 +66,7 @@ public class RedCordController {
     }
 
     @GetMapping("/newMessage")
-    public String newOrder(Model model){
+    public String newMessage(Model model){
         model.addAttribute("messageEntry", new Message());
         return "newMessage";
     }
@@ -143,7 +143,7 @@ public class RedCordController {
      * @return the JSON data page with all entries present excluding the deleted entry
      */
     @PostMapping(value="/deleteMessage")
-    public ResponseEntity deleteJournalEntry(@RequestParam Map<String, String> requestParams) {
+    public ResponseEntity deleteMessage(@RequestParam Map<String, String> requestParams) {
         String messageId = "";
         try {
             messageId = requestParams.get("messageId");
