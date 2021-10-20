@@ -13,4 +13,5 @@ class Message {
      private String message;
      @SerializedName("topicId")
      private int topicId;
+
 }

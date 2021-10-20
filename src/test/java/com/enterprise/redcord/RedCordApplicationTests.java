@@ -7,6 +7,7 @@ import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
 import com.enterprise.redcord.service.MessageServiceStub;
+import com.enterprise.redcord.service.TopicServiceStub;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,26 +15,30 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class RedCordApplicationTests {
 
     private ITopicService topicService;
+
     @MockBean
     private ITopicDAO topicDAO;
+
     private Topic topic = new Topic();
 
     @MockBean
     private IMessageService messageService;
+
     @MockBean
     private IMessageDAO messageDAO;
+
     private Message messageEntry = new Message();
 
     @Test
     void contextLoads() {
     }
-
-
 
     @Test
     void saveMessage_validateReturnMessage() throws Exception {
@@ -57,17 +62,19 @@ class RedCordApplicationTests {
         assertEquals(messageEntry, createdMessage);
     }
 
-
     @Test
-    void save_fetch() throws Exception  {
-        saveTopic();
-        assertSaved();
+    void save_validateReturnTopicWithTopicIDUserIDTitleAndMessage() throws Exception {
+        givenTopicDataAreAvailable();
+        whenUserCreatesOrUpdatesTopicAndSaves();
+        thenCreateNewTopicRecordAndReturnIt();
     }
 
-    private void saveTopic() throws Exception  {
+    private void givenTopicDataAreAvailable() throws Exception {
+        Mockito.when(topicDAO.save(topic)).thenReturn(topic);
+        topicService = new TopicServiceStub(topicDAO);
+    }
 
-        topic.setTopicId(1);
-        topic.setUserId(1);
+    private void whenUserCreatesOrUpdatesTopicAndSaves() {
         topic.setTitle("My 1st Topic");
         topic.setDescription("First or last WaaaaOOOOO");
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);
@@ -76,6 +83,7 @@ class RedCordApplicationTests {
     private void assertSaved()  {
         String message = topic.getDescription();
         assertEquals("First or last WaaaaOOOOO", message);
+
     }
 
 }
