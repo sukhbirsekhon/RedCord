@@ -80,10 +80,10 @@ class RedCordApplicationTests {
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);
     }
 
-    private void assertSaved()  {
-        String message = topic.getDescription();
-        assertEquals("First or last WaaaaOOOOO", message);
-
+    private void thenCreateNewTopicRecordAndReturnIt() throws Exception {
+        Topic savedTopic = topicService.save(topic);
+        assertEquals(topic, savedTopic);
+        verify(topicDAO, atLeastOnce()).save(topic);
     }
 
 }
