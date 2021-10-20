@@ -74,7 +74,7 @@ class RedCordApplicationTests {
         topicService = new TopicServiceStub(topicDAO);
     }
 
-    private void whenUserCreatesOrUpdatesTopicAndSaves() {
+    private void whenUserCreatesOrUpdatesTopicAndSaves() throws Exception {
         topic.setTitle("My 1st Topic");
         topic.setDescription("First or last WaaaaOOOOO");
         Mockito.when(topicDAO.save(topic)).thenReturn(topic);
