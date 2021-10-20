@@ -9,9 +9,15 @@ class Message {
      private String messageId;
      @SerializedName("userId")
      private int userId;
+     @SerializedName("title")
+     private String title;
      @SerializedName("message")
      private String message;
      @SerializedName("topicId")
      private int topicId;
+  
+     public String toString(){
+          return title + "";
+     }
 
 }

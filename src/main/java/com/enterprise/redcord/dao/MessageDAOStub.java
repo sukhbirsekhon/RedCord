@@ -5,7 +5,11 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -55,6 +59,35 @@ public class MessageDAOStub implements IMessageDAO{
 
         return new ArrayList(allMessages.values());
     }
+
+
+    @Override
+    public List<Message> fetchEntry(String searchEntry) throws ExecutionException, InterruptedException, IOException {
+        Map<String, Object> allMessages = new HashMap<>();
+        Message foundMessages = new Message();
+
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        CollectionReference messages = dbFirestore.collection("Messages");
+        Query query = messages.whereGreaterThanOrEqualTo("title", searchEntry).whereLessThanOrEqualTo("title", searchEntry + "\uf8ff");
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        for(DocumentSnapshot document : querySnapshot.get().getDocuments()){
+            allMessages.put(document.getId(), document.getData());
+        }
+
+        return new ArrayList(allMessages.values());
+    }
+
+    /*
+    @Override
+    public List<Message> fetchEntry(String searchEntry) throws IOException {
+        Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
+        IMessageRetrofitDAO retrofitDAO = retrofitInstance.create(IMessageRetrofitDAO.class);
+        Call<List<Message>> messageById = retrofitDAO.getMessage(searchEntry);
+        Response<List<Message>> execute = messageById.execute();
+        List<Message> message = execute.body();
+        return message;
+    }*/
 
     @Override
     public void delete(String id) {
