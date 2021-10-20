@@ -11,4 +11,18 @@ public interface IMessageService {
     Message saveMessage(Message message) throws Exception;
 
     List<Message> fetchAllMessages() throws ExecutionException, InterruptedException;
+
+    /**
+     * Retrieve message by id
+     * @param id is the entry to fetch.
+     * @return the specified message by its id
+     */
+    List<Message> fetchById(String id) throws ExecutionException, InterruptedException;
+
+    /**
+     * Delete a message by id
+     * @param id is the entry to delete.
+     */
+    void delete(String id) throws Exception;
+
 }

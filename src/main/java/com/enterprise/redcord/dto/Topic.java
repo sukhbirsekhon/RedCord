@@ -9,6 +9,5 @@ class Topic {
      private int topicId;
      private int userId;
      private String title;
-     private String message;
-
+     private String description;
 }

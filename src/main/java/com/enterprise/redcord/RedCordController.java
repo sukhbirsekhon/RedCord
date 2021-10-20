@@ -8,13 +8,16 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Controller
@@ -33,9 +36,9 @@ public class RedCordController {
      */
     @RequestMapping("/")
     public String index(Model model) {
+
         logger.trace("Accessed index method in RedCordController.");
         model.addAttribute("messageEntry", new Message());
-
         return "start";
     }
 
@@ -104,6 +107,43 @@ public class RedCordController {
     public ResponseEntity searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry){
         String newSearchEntry = searchEntry + "";
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    /**
+     * Handle the /journalEntryById GET method endpoint
+     * @return the JSON data page with only the requested journal entry present
+     */
+    @GetMapping("/messageById")
+    public ResponseEntity fetchMessageById(@RequestParam Map<String, String> requestParams) {
+        String messageId = "";
+        try {
+            messageId = requestParams.get("messageId");
+            List<Message> foundMessageEntry = messageService.fetchById(messageId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Handle the /deleteJournalEntry GET Method endpoint
+     * @return the JSON data page with all entries present excluding the deleted entry
+     */
+    @PostMapping(value="/deleteMessage")
+    public ResponseEntity deleteJournalEntry(@RequestParam Map<String, String> requestParams) {
+        String messageId = "";
+        try {
+            messageId = requestParams.get("messageId");
+            messageService.delete(messageId);
+            return new ResponseEntity(messageService.fetchAllMessages(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }
