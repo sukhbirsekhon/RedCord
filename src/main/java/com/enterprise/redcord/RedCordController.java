@@ -52,8 +52,10 @@ public class RedCordController {
        } catch(Exception e) {
            logger.error("Error in saveTopic method: " + e.getMessage());
            e.printStackTrace();
+           return "error";
        }
-       return "start";
+      return "start";
+
     }
 
     @GetMapping("/newMessage")
@@ -75,8 +77,10 @@ public class RedCordController {
         } catch(Exception e) {
             logger.error("Error in saveMessage method: " + e.getMessage());
             e.printStackTrace();
+            return "error";
         }
-        return "start";
+        return "error";
+       // return "start";
     }
 
     /**
