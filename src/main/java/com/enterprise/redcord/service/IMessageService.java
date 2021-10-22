@@ -21,6 +21,13 @@ public interface IMessageService {
     List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException;
 
     /**
+     * Retrieve message by id
+     * @param id is the entry to fetch.
+     * @return the specified message by its id
+     */
+    List<Message> fetchByTopiocId(String id) throws ExecutionException, InterruptedException, IOException;
+
+    /**
      * Retrieve message by search, results are determined by message title
      * @param searchEntry is the entry to fetch.
      * @return the specified message by combined title words

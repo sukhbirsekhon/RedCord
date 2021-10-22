@@ -5,7 +5,7 @@ import lombok.Data;
 
 public @Data
 class Topic {
-     private int topicId;
+     private String topicId;
      private int userId;
      private String topicName;
      private String topicDescription;

@@ -7,6 +7,7 @@ import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
 import com.enterprise.redcord.service.MessageServiceStub;
+import com.enterprise.redcord.service.TopicServiceStub;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,19 +15,25 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class RedCordApplicationTests {
 
     private ITopicService topicService;
+
     @MockBean
     private ITopicDAO topicDAO;
+
     private Topic topic = new Topic();
 
     @MockBean
     private IMessageService messageService;
+
     @MockBean
     private IMessageDAO messageDAO;
+
     private Message messageEntry = new Message();
 
     @Test
@@ -49,6 +56,8 @@ class RedCordApplicationTests {
 
     private void whenUserSubmitsANewMessage() {
         messageEntry.setMessageId("1");
+        messageEntry.setTopicId("1");
+        messageEntry.setTitle("1st Message");
         messageEntry.setMessage("My First Posted Message");
     }
 
@@ -59,23 +68,29 @@ class RedCordApplicationTests {
 
 
     @Test
-    void save_fetch() throws Exception  {
-        saveTopic();
-        assertSaved();
+    void save_validateReturnTopicWithTopicIDUserIDTitleAndMessage() throws Exception {
+        givenTopicDataAreAvailable();
+        whenUserCreatesOrUpdatesTopicAndSaves();
+        thenCreateNewTopicRecordAndReturnIt();
     }
 
-    private void saveTopic() throws Exception  {
+    private void givenTopicDataAreAvailable() throws Exception {
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
+        topicService = new TopicServiceStub(topicDAO);
+    }
 
-        topic.setTopicId(1);
-        topic.setUserId(1);
-        topic.setTopicName("Test Movies");
+    private void whenUserCreatesOrUpdatesTopicAndSaves() throws Exception {
+        topic.setTopicId("1");
+        topic.setTopicName("Movies");
         topic.setTopicDescription("Lets talk about movies");
-        Mockito.when(topicDAO.save(topic)).thenReturn(topic);
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
+
     }
 
-    private void assertSaved()  {
-        String message = topic.getTopicDescription();
-        assertEquals("Lets talk about movies", message);
+    private void thenCreateNewTopicRecordAndReturnIt() throws Exception {
+        Topic savedTopic = topicService.saveTopic(topic);
+        assertEquals(topic, savedTopic);
+        verify(topicDAO, atLeastOnce()).saveTopic(topic);
     }
 
 }

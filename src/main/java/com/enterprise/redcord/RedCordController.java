@@ -37,10 +37,12 @@ public class RedCordController {
         return "start";
     }*/
     @RequestMapping("/")
-    public String index(@RequestParam(value="", required = false, defaultValue="None") String searchEntry, Model model) {
+    public String index(@RequestParam(value="searchTopic", required = false, defaultValue="None") String searchTopic, Model model) throws IOException {
+        String topicId = null;
         List<Message> messages = null;
         try {
-            messages = messageService.fetchAllMessages();
+            topicId = topicService.fetchByTopicName(searchTopic);
+            messages = messageService.fetchByTopiocId(topicId);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -58,7 +60,7 @@ public class RedCordController {
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
        try {
-           topicService.save(topic);
+           topicService.saveTopic(topic);
        }catch(Exception e){
            e.printStackTrace();
         }
@@ -129,6 +131,21 @@ public class RedCordController {
         try {
             messageId = requestParams.get("messageId");
             List<Message> foundMessageEntry = messageService.fetchById(messageId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/messageByTopicId")
+    public ResponseEntity fetchMessageByTopicId(@RequestParam Map<String, String> requestParams) {
+        String topicId = "";
+        try {
+            topicId = requestParams.get("topicId");
+            List<Message> foundMessageEntry = messageService.fetchByTopiocId(topicId);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);

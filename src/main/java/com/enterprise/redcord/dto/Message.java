@@ -14,7 +14,7 @@ class Message {
      @SerializedName("message")
      private String message;
      @SerializedName("topicId")
-     private int topicId;
+     private String topicId;
 
 
      public String toString(){

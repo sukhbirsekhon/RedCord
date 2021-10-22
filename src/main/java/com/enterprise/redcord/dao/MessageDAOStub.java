@@ -94,4 +94,24 @@ public class MessageDAOStub implements IMessageDAO{
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection("Messages").document(id).delete();
     }
+
+    @Override
+    public List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException {
+        Map<String, Object> allMessages = new HashMap<>();
+        //Message foundMessage = new Message();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        //ApiFuture<QuerySnapshot> collectionsApiFuture = dbFirestore.collection("Messages").get();
+        Query collectionsQuery = dbFirestore.collection("Messages").whereEqualTo("topicId", id);
+        //List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
+        ApiFuture<QuerySnapshot> collectionsApiFuture = collectionsQuery.get();
+        List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
+
+        for(QueryDocumentSnapshot document : documents){
+            allMessages.put(document.getId(), document.getData());
+                //return document;
+        }
+
+        return new ArrayList(allMessages.values());
+    }
 }

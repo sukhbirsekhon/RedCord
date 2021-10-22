@@ -40,4 +40,6 @@ public interface IMessageDAO {
      * @param id is the message to delete.
      */
     void delete(String id);
+
+    List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException;
 }
