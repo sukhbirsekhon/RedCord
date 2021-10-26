@@ -37,17 +37,22 @@ public class RedCordController {
         return "start";
     }*/
     @RequestMapping("/")
-    public String index(@RequestParam(value="searchTopic", required = false, defaultValue="None") String searchTopic, Model model) throws IOException {
+    public String index(@RequestParam(value="searchTopic", required = false, defaultValue="None") String searchTopic, @ModelAttribute("topic") Topic topic, Model model) throws IOException {
         String topicId = null;
         List<Message> messages = null;
+        //String topicName = requestParams.get("topicName");
+        String topicName = "Movies";
+        //model.addAttribute("topic", topic);
         try {
-            topicId = topicService.fetchByTopicName(searchTopic);
-            messages = messageService.fetchByTopiocId(topicId);
+/*            topicId = topicService.fetchByTopicName(topicName);
+            messages = messageService.fetchByTopicId(topicId);*/
+            messages = messageService.fetchAllMessages();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         model.addAttribute("messages", messages);
         model.addAttribute("messageEntry", new Message());
         return "start";
@@ -68,8 +73,9 @@ public class RedCordController {
     }
 
     @GetMapping("/newMessage")
-    public String newMessage(Model model){
+    public String newMessage(Model model) {
         model.addAttribute("messageEntry", new Message());
+        model.addAttribute("topic", new Topic());
         return "newMessage";
     }
 
@@ -78,9 +84,15 @@ public class RedCordController {
      * @return the start.html location
      */
     @PostMapping(value="/saveMessage")
-    public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
+    //public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
+    public String saveMessage(@ModelAttribute("topic") Topic topic, @ModelAttribute("messageEntry") Message messageEntry, Model model) {
+        //String searchTopic = model.getAttribute("topicId", messageEntry);
+        //String searchTopic = "";
+        String topicId = null;
         Message newMessage = null;
         try {
+            topicId = topicService.fetchByTopicName(topic.getTopicName());
+            messageEntry.setTopicId(topicId);
             newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
             e.printStackTrace();
@@ -145,7 +157,7 @@ public class RedCordController {
         String topicId = "";
         try {
             topicId = requestParams.get("topicId");
-            List<Message> foundMessageEntry = messageService.fetchByTopiocId(topicId);
+            List<Message> foundMessageEntry = messageService.fetchByTopicId(topicId);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);

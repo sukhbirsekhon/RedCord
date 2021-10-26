@@ -1,0 +1,26 @@
+
+<div th:fragment="topicBarGet">
+    <div class="outer">
+        <div class="inner">
+           <!-- <form class="d-flex" action="#">-->
+                <!--<input class="form-control me-2" type="search" aria-label="Search" size="40" name="searchTopic" id="searchTopic" list="Topic_Name">
+                <datalist id="Topic_Name">-->
+            <form class="d-flex" action="#" th:action="@{/}" th:object="${topic}" method="get">
+
+                <select name="searchTopic" id="searchTopic" >
+
+                    <option value="Movies">Movies</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Food">Food</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Comedy">Comedy</option>
+
+
+                </select>
+            </form>
+                <!--</datalist>-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">GoTo</button>-->
+            <!--</form>-->
+        </div>
+    </div>
+</div>

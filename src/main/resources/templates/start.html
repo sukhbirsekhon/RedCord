@@ -19,10 +19,24 @@
 <body>
 
 <div th:replace="fragments/topnav :: navbar"></div>
+<!--<div th:replace="fragments/getTopicBar :: topicBarGet"></div>-->
 
 <br /><br /><br /><br />
 <div class="outer">
     <div class="inner">
+
+        <!--<form class="d-flex" action="#" th:action="@{/}" th:object="${topic}" method="get">-->
+        <!--<form class="d-flex" action="#" method="get">-->
+            <select name="searchTopic" id="searchTopic">
+                <option value="PVCHm6NGPl3sku2TevHx">Movies</option>
+                <option value="p80LIZkSduXUU9eEtuBH">Sports</option>
+                <option value="iXqnVKJNhAZTSVC9Kwwc">Food</option>
+                <option value="DUTtkWsTSaKWg8BmRSpD">Gaming</option>
+                <option value="BSTHRYdp14u2FDbDI0Ce">Comedy</option>
+            </select>
+        <!--</form>-->
+
+        <br /><br /><br /><br />
         <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
             <button name="submit" type="submit" value="0">View All Messages</button>
         </form>
@@ -31,6 +45,7 @@
         <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get">
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="messageById">Enter Message Id</span>
+                <!--<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">-->
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">
             </div>
             <button name="submit" type="submit" value="0">Find Message by Id</button>
@@ -49,6 +64,7 @@
         <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post">
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="deleteMessageById">Enter Message Id</span>
+                <!--<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">-->
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">
             </div>
             <button name="submit" type="submit" value="0">Delete Message by Id</button>
