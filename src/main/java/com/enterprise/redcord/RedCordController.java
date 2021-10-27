@@ -103,6 +103,7 @@ public class RedCordController {
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
+
         logger.trace("Accessed fetchAllMessages method in RedCordController.");
         try {
             return messageService.fetchAllMessages();
@@ -119,6 +120,7 @@ public class RedCordController {
      */
     @GetMapping("/searchMessageEntry")
     public String searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry, Model model) {
+        int number = 0;
         try {
             List<Message> messages = messageService.fetchEntry(searchEntry);
             model.addAttribute("messages", messages);
@@ -170,6 +172,24 @@ public class RedCordController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/messageThread")
+    public String messageThread(@RequestParam Map<String, String> requestParams)
+    {
+        String messageId = "";
+        try {
+            messageId = requestParams.get("messageId");
+            List<Message> foundMessageEntry = messageService.fetchById(messageId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            //return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);
+        }
+        catch(Exception e){
+            //return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return "messageThread";
     }
 
 }
