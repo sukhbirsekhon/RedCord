@@ -37,7 +37,7 @@ public class RedCordController {
         return "start";
     }*/
     @RequestMapping("/")
-    public String index(@RequestParam(value="searchTopic", required = false, defaultValue="None") String searchTopic, @ModelAttribute("topic") Topic topic, Model model) throws IOException {
+    public String index(Model model) throws IOException {
         String topicId = null;
         List<Message> messages = null;
         //String topicName = requestParams.get("topicName");
