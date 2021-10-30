@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -175,21 +176,13 @@ public class RedCordController {
     }
 
     @GetMapping("/messageThread/{messageId}/")
-    public String messageThread(@PathVariable("messageId") String messageId)
-    {
-        String msg = "";
-        try {
-            msg = messageId;
-            List<Message> foundMessageEntry = messageService.fetchById(msg);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            //return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);
-        }
-        catch(Exception e){
-            //return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ModelAndView messageThread(@PathVariable("messageId") String messageId) throws IOException, ExecutionException, InterruptedException {
 
-        return "messageThread";
-    }
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("MessageThread");
+            List<Message> messages = messageService.fetchMessageById(messageId);
+            modelAndView.addObject("messages", messages);
+            return  modelAndView;
 
+        }
 }
