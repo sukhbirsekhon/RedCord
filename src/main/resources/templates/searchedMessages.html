@@ -18,13 +18,21 @@
 <br/><br/><br/><br/>
 A list of messages.
 <br/><br/><br/><br/>
-
+<!--
 <div class="list-group" th:each="message : ${messages}">
-    <a th:href="@{/messageThread}" name="{message.messageId}"  class="list-group-item list-group-item-action">
+    <a th:href="@{/messageThread}"  class="list-group-item list-group-item-action">
         <p th:text="${message}"/>
     </a>
 </div>
+-->>
 
+ look at path var to relink
+<div class="list-group" th:each="message : ${messages}">
+    <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
+        <p th:text="${message}"/>
+        <p th:style="hidden" th:text="${message.messageId}"/>
+    </a>
+</div>
 
 </body>
 </html>

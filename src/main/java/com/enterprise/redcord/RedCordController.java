@@ -174,13 +174,13 @@ public class RedCordController {
 
     }
 
-    @GetMapping("/messageThread")
-    public String messageThread(@RequestParam Map<String, String> requestParams)
+    @GetMapping("/messageThread/{messageId}/")
+    public String messageThread(@PathVariable("messageId") String messageId)
     {
-        String messageId = "";
+        String msg = "";
         try {
-            messageId = requestParams.get("messageId");
-            List<Message> foundMessageEntry = messageService.fetchById(messageId);
+            msg = messageId;
+            List<Message> foundMessageEntry = messageService.fetchById(msg);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             //return new ResponseEntity(foundMessageEntry, headers, HttpStatus.OK);
