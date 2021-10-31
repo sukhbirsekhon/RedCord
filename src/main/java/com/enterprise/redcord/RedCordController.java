@@ -5,6 +5,8 @@ import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
 import com.enterprise.redcord.service.ITopicService;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +24,8 @@ import java.util.concurrent.ExecutionException;
 
 @Controller
 public class RedCordController {
+
+    Logger logger = LoggerFactory.getLogger(RedCordController.class);
 
     @Autowired
     ITopicService topicService;
@@ -52,7 +57,7 @@ public class RedCordController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        logger.trace("Accessed index method in RedCordController.");
         model.addAttribute("messages", messages);
         model.addAttribute("messageEntry", new Message());
         return "start";
@@ -64,12 +69,14 @@ public class RedCordController {
      */
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
+       logger.trace("Accessed savedTopic method in RedCordController.");
        try {
            topicService.saveTopic(topic);
        }catch(Exception e){
+           logger.error("Error in saveTopic method: " + e.getMessage());
            e.printStackTrace();
-        }
-        return "start";
+       }
+       return "start";
     }
 
     @GetMapping("/newMessage")
@@ -86,6 +93,7 @@ public class RedCordController {
     @PostMapping(value="/saveMessage")
     //public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
     public String saveMessage(@ModelAttribute("topic") Topic topic, @ModelAttribute("messageEntry") Message messageEntry, Model model) {
+        logger.trace("Accessed saveMessage method in RedCordController.");
         //String searchTopic = model.getAttribute("topicId", messageEntry);
         //String searchTopic = "";
         String topicId = null;
@@ -95,6 +103,7 @@ public class RedCordController {
             messageEntry.setTopicId(topicId);
             newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
+            logger.error("Error in saveMessage method: " + e.getMessage());
             e.printStackTrace();
         }
         return "start";
@@ -107,7 +116,15 @@ public class RedCordController {
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
-        return messageService.fetchAllMessages();
+
+        logger.trace("Accessed fetchAllMessages method in RedCordController.");
+        try {
+            return messageService.fetchAllMessages();
+        } catch (Exception e) {
+            logger.error("Error in fetchAllMessages method: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -184,4 +201,14 @@ public class RedCordController {
 
     }
 
+    @GetMapping("/messageThread/{messageId}/")
+    public ModelAndView messageThread(@PathVariable("messageId") String messageId) throws IOException, ExecutionException, InterruptedException {
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("MessageThread");
+            List<Message> messages = messageService.fetchById(messageId);
+            modelAndView.addObject("messages", messages);
+            return  modelAndView;
+
+        }
 }

@@ -66,5 +66,4 @@ public class TopicDAOStub implements ITopicDAO {
 
         return topicId;
     }
-
 }

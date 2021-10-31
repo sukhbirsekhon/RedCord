@@ -14,26 +14,26 @@
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
-<div th:replace="fragments/getTopicBar :: topicBarGet"></div>
 
-<br/><br/><br/><br/>
-A list of messages.
-<br/><br/><br/><br/>
+Implement ability to click on message and open message thread
 <!--
-<div class="list-group" th:each="message : ${messages}">
-    <a th:href="@{/messageThread}"  class="list-group-item list-group-item-action">
-        <p th:text="${message}"/>
-    </a>
-</div>
--->>
+<div th:each="specimen : ${message}">
+    <p th:text="${message}"></p>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="list-group">
 
- look at path var to relink
+-->
 <div class="list-group" th:each="message : ${messages}">
     <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
         <p th:text="${message}"/>
         <p th:style="hidden" th:text="${message.messageId}"/>
     </a>
 </div>
+
+display comment section for the above message
+</div>
+
+
 
 </body>
 </html>

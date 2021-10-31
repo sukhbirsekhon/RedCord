@@ -20,6 +20,8 @@ public interface IMessageService {
      */
     List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException;
 
+    List<Message> fetchMessageById(String messageId)throws ExecutionException, InterruptedException, IOException;
+
     /**
      * Retrieve message by id
      * @param id is the entry to fetch.

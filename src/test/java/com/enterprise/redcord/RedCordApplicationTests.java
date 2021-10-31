@@ -40,8 +40,6 @@ class RedCordApplicationTests {
     void contextLoads() {
     }
 
-
-
     @Test
     void saveMessage_validateReturnMessage() throws Exception {
         givenMessageDataAreAvailable();
@@ -66,7 +64,6 @@ class RedCordApplicationTests {
         assertEquals(messageEntry, createdMessage);
     }
 
-
     @Test
     void save_validateReturnTopicWithTopicIDUserIDTitleAndMessage() throws Exception {
         givenTopicDataAreAvailable();
@@ -84,7 +81,6 @@ class RedCordApplicationTests {
         topic.setTopicName("Movies");
         topic.setTopicDescription("Lets talk about movies");
         Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
-
     }
 
     private void thenCreateNewTopicRecordAndReturnIt() throws Exception {
@@ -92,5 +88,4 @@ class RedCordApplicationTests {
         assertEquals(topic, savedTopic);
         verify(topicDAO, atLeastOnce()).saveTopic(topic);
     }
-
 }

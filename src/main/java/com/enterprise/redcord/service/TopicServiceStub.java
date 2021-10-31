@@ -40,4 +40,5 @@ public class TopicServiceStub implements ITopicService{
     public String fetchByTopicName(String searchTopic) throws ExecutionException, InterruptedException {
         return topicDAO.fetchTopicByName(searchTopic);
     }
+
 }
