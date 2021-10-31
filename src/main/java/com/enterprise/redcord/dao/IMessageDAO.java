@@ -28,6 +28,7 @@ public interface IMessageDAO {
      */
     List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException;
 
+
     /**
      * Retrieve message by search, results are determined by message title
      * @param searchEntry is the entry to fetch.
@@ -35,11 +36,16 @@ public interface IMessageDAO {
      */
     List<Message> fetchEntry(String searchEntry) throws ExecutionException, InterruptedException, IOException;
 
+
     /**
      * Delete a message
      * @param id is the message to delete.
      */
     void delete(String id);
 
+    /**
+     * Retrieve all messages with topic id
+     * @param id is the id of a topic.
+     */
     List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException;
 }
