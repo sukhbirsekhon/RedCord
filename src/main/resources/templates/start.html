@@ -1,60 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-
-    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"/>
     <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>RedCord</title>
 </head>
-<body>
+    <body>
 
-<div th:replace="fragments/topnav :: navbar"></div>
-
-<br /><br /><br /><br />
-<div class="outer">
-    <div class="inner">
-        <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
-            <button name="submit" type="submit" value="0">View All Messages</button>
-        </form>
+        <div th:replace="fragments/topnav :: navbar"></div>
 
         <br /><br /><br /><br />
-        <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get">
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="messageById">Enter Message Id</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">
+        <div class="outer">
+            <div class="inner">
+
+
+                <form style="display: inline-block" action="#" th:action="@{/}" th:object="${topicEntry}" method="get" >
+                <select th:name="topicEntry">
+                    <div class="list-group" th:each="topic : ${topics}">
+                        <div class="list-group" th:each="topicNames : ${topic['topicName']}">
+                            <option th:value="${topicNames}" th:text="${topicNames}" th:selected="${topicNames=='Movies'}"></option>
+                        </div>
+                    </div>
+                </select>
+                    <button name="submit" type="submit" value="0">Go To Topic</button>
+                </form>
+
+                <br /><br /><br /><br />
+                <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
+                    <button name="submit" type="submit" value="0">View All Messages</button>
+                </form>
+
+                <br /><br /><br /><br />
+                <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="messageById">Enter Message Id</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">
+                    </div>
+                    <button name="submit" type="submit" value="0">Find Message by Id</button>
+                </form>
+
+                <br /><br /><br /><br />
+                <form action="#" th:action="@{/messageByTopicId}" th:object="${messageEntry}" method="get">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="messageByTopicId">Enter Topic Id</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{topicId}">
+                    </div>
+                    <button name="submit" type="submit" value="0">Find Message by Topic Id</button>
+                </form>
+
+                <br /><br /><br /><br />
+                <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="deleteMessageById">Enter Message Id</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">
+                    </div>
+                    <button name="submit" type="submit" value="0">Delete Message by Id</button>
+                </form>
             </div>
-            <button name="submit" type="submit" value="0">Find Message by Id</button>
-        </form>
+        </div>
 
         <br /><br /><br /><br />
-        <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post">
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="deleteMessageById">Enter Message Id</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">
+        <div class="list-group" th:each="message : ${messages}">
+            <div class="list-group" th:each="title : ${message['title']}">
+                <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}" class="list-group-item list-group-item-action">
+                    <p th:text="${title}"/>
+                </a>
             </div>
-            <button name="submit" type="submit" value="0">Delete Message by Id</button>
-        </form>
-    </div>
-</div>
+        </div>
 
-<br /><br /><br /><br />
-<div class="list-group" th:each="message : ${messages}">
-    <div class="list-group" th:each="title : ${message['title']}">
-        <a href="#" class="list-group-item list-group-item-action">
-            <p th:text="${title}"/>
-        </a>
-    </div>
-</div>
-
-</body>
+    </body>
 </html>

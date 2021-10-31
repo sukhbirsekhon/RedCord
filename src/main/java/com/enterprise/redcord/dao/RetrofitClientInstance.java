@@ -24,7 +24,6 @@ public class RetrofitClientInstance {
             client = new OkHttpClient();
         }
 
-
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

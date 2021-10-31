@@ -54,6 +54,8 @@ class RedCordApplicationTests {
 
     private void whenUserSubmitsANewMessage() {
         messageEntry.setMessageId("1");
+        messageEntry.setTopicId("1");
+        messageEntry.setTitle("1st Message");
         messageEntry.setMessage("My First Posted Message");
     }
 
@@ -70,20 +72,20 @@ class RedCordApplicationTests {
     }
 
     private void givenTopicDataAreAvailable() throws Exception {
-        Mockito.when(topicDAO.save(topic)).thenReturn(topic);
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
         topicService = new TopicServiceStub(topicDAO);
     }
 
     private void whenUserCreatesOrUpdatesTopicAndSaves() throws Exception {
-        topic.setTitle("My 1st Topic");
-        topic.setDescription("First or last WaaaaOOOOO");
-        Mockito.when(topicDAO.save(topic)).thenReturn(topic);
+        topic.setTopicId("1");
+        topic.setTopicName("Movies");
+        topic.setTopicDescription("Lets talk about movies");
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
     }
 
     private void thenCreateNewTopicRecordAndReturnIt() throws Exception {
-        Topic savedTopic = topicService.save(topic);
+        Topic savedTopic = topicService.saveTopic(topic);
         assertEquals(topic, savedTopic);
-        verify(topicDAO, atLeastOnce()).save(topic);
+        verify(topicDAO, atLeastOnce()).saveTopic(topic);
     }
-
 }
