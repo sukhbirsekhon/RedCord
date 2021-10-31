@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -103,6 +104,7 @@ public class RedCordController {
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
+
         logger.trace("Accessed fetchAllMessages method in RedCordController.");
         try {
             return messageService.fetchAllMessages();
@@ -119,6 +121,7 @@ public class RedCordController {
      */
     @GetMapping("/searchMessageEntry")
     public String searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry, Model model) {
+        int number = 0;
         try {
             List<Message> messages = messageService.fetchEntry(searchEntry);
             model.addAttribute("messages", messages);
@@ -172,4 +175,14 @@ public class RedCordController {
 
     }
 
+    @GetMapping("/messageThread/{messageId}/")
+    public ModelAndView messageThread(@PathVariable("messageId") String messageId) throws IOException, ExecutionException, InterruptedException {
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("MessageThread");
+            List<Message> messages = messageService.fetchMessageById(messageId);
+            modelAndView.addObject("messages", messages);
+            return  modelAndView;
+
+        }
 }
