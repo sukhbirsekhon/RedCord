@@ -13,4 +13,6 @@ public interface ITopicService {
     List<Message> fetchTopicById(String id) throws ExecutionException, InterruptedException;
 
     String fetchByTopicName(String searchTopic) throws ExecutionException, InterruptedException;
+
+    List<Topic> fetchAllTopics() throws ExecutionException, InterruptedException;
 }

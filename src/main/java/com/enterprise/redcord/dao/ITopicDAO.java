@@ -13,15 +13,24 @@ public interface ITopicDAO {
      */
     Topic saveTopic(Topic topic) throws InterruptedException, ExecutionException;
 
+
     /**
      * Retrieve topic by id
      * @param id of a topic
      */
     List<Message> fetchTopicById(String id) throws ExecutionException, InterruptedException;
 
+
     /**
      * Retrieve topic by name
      * @param searchTopic a name of a topic
      */
     String fetchTopicByName(String searchTopic) throws ExecutionException, InterruptedException;
+
+
+    /**
+     * Return all topics.
+     * @return a collection of all topics.
+     */
+    List<Topic> fetchAllTopics() throws ExecutionException, InterruptedException;
 }

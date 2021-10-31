@@ -9,9 +9,20 @@ import java.util.concurrent.ExecutionException;
 
 public interface IMessageService {
 
+    /**
+     * saves newly created message
+     * @param message is the entry to save
+     * @return returns the message entry
+     */
     Message saveMessage(Message message) throws Exception;
 
+
+    /**
+     * Retrieves all messages
+     * @return all messages
+     */
     List<Message> fetchAllMessages() throws ExecutionException, InterruptedException;
+
 
     /**
      * Retrieve message by id
@@ -20,7 +31,6 @@ public interface IMessageService {
      */
     List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException;
 
-    List<Message> fetchMessageById(String messageId)throws ExecutionException, InterruptedException, IOException;
 
     /**
      * Retrieve message by id
@@ -29,6 +39,7 @@ public interface IMessageService {
      */
     List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException, IOException;
 
+
     /**
      * Retrieve message by search, results are determined by message title
      * @param searchEntry is the entry to fetch.
@@ -36,10 +47,10 @@ public interface IMessageService {
      */
     List<Message> fetchEntry(String searchEntry) throws ExecutionException, InterruptedException, IOException;
 
+
     /**
      * Delete a message by id
      * @param id is the entry to delete.
      */
     void delete(String id) throws Exception;
-
 }

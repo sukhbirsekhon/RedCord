@@ -43,6 +43,7 @@ public interface IMessageDAO {
      */
     void delete(String id);
 
+
     /**
      * Retrieve all messages with topic id
      * @param id is the id of a topic.

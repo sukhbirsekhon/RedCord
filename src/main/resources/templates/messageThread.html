@@ -12,28 +12,25 @@
     <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>RedCord - Search</title>
 </head>
-<body>
-<div th:replace="fragments/topnav :: navbar"></div>
+    <body>
+        <div th:replace="fragments/topnav :: navbar"></div>
 
-Implement ability to click on message and open message thread
-<!--
-<div th:each="specimen : ${message}">
-    <p th:text="${message}"></p>
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="list-group">
+        <br /><br />
 
--->
-<div class="list-group" th:each="message : ${messages}">
-    <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
-        <p th:text="${message}"/>
-        <p th:style="hidden" th:text="${message.messageId}"/>
-    </a>
-</div>
+        <div class="outer">
+            <div class="inner">
 
-display comment section for the above message
-</div>
+                <br /><br />
+                <div th:each="messageEntry : ${messages}">
+                    <span>Title</span>
+                    <p th:text="${messageEntry['title']}"/>
+                    <br />
+                    <span>Message</span>
+                    <p th:text="${messageEntry['message']}"/>
 
+                </div>
+            </div>
+        </div>
 
-
-</body>
+    </body>
 </html>

@@ -41,4 +41,9 @@ public class TopicServiceStub implements ITopicService{
         return topicDAO.fetchTopicByName(searchTopic);
     }
 
+    @Override
+    public List<Topic> fetchAllTopics() throws ExecutionException, InterruptedException {
+        return topicDAO.fetchAllTopics();
+    }
+
 }

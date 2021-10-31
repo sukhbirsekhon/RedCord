@@ -33,37 +33,42 @@ public class TopicDAOStub implements ITopicDAO {
     @Override
     public List<Message> fetchTopicById(String id) throws ExecutionException, InterruptedException {
         Map<String, Object> allTopics = new HashMap<>();
-        //Message foundMessage = new Message();
         Firestore dbFirestore = FirestoreClient.getFirestore();
-
         ApiFuture<QuerySnapshot> collectionsApiFuture = dbFirestore.collection("Topics").get();
         List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
         for(QueryDocumentSnapshot document : documents){
             if(document.getId().equals(id)){
-                //return document;
                 allTopics.put(document.getId(), document.getData());
             }
         }
         return new ArrayList(allTopics.values());
     }
 
+
     @Override
     public String fetchTopicByName(String searchTopic) throws ExecutionException, InterruptedException {
         Map<String, Object> allTopics = new HashMap<>();
         String topicId = "";
-
         Firestore dbFirestore = FirestoreClient.getFirestore();
         Query collectionsQuery = dbFirestore.collection("Topics").whereEqualTo("topicName", searchTopic);
         ApiFuture<QuerySnapshot> collectionsApiFuture = collectionsQuery.get();
         List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
-
         for(QueryDocumentSnapshot document : documents){
-            //allTopics.put(document.getId(), document.getData());
-            //return document;
             topicId = document.getId();
         }
-
-
         return topicId;
+    }
+
+
+    @Override
+    public List<Topic> fetchAllTopics() throws ExecutionException, InterruptedException {
+        Map<String, Object> allTopics = new HashMap<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> collectionsApiFuture = dbFirestore.collection("Topics").get();
+        List<QueryDocumentSnapshot> documents = collectionsApiFuture.get().getDocuments();
+        for(QueryDocumentSnapshot document : documents){
+            allTopics.put(document.getId(), document.getData());
+        }
+        return new ArrayList(allTopics.values());
     }
 }

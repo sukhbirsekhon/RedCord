@@ -29,29 +29,24 @@ public class RedCordController {
 
     @Autowired
     ITopicService topicService;
+
     @Autowired
     IMessageService messageService;
+
 
     /**
      * Handle the root (/) endpoint
      * @return the start.html location
      */
-/*    @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("messageEntry", new Message());
-        return "start";
-    }*/
-    @RequestMapping("/")
-    public String index(Model model) throws IOException {
+    @RequestMapping( "/")
+    public String index(@ModelAttribute("topicEntry") String topicName, Model model) throws IOException {
         String topicId = null;
         List<Message> messages = null;
-        //String topicName = requestParams.get("topicName");
-        String topicName = "Movies";
-        //model.addAttribute("topic", topic);
+        List<Topic> topics = null;
         try {
-/*            topicId = topicService.fetchByTopicName(topicName);
-            messages = messageService.fetchByTopicId(topicId);*/
-            messages = messageService.fetchAllMessages();
+            topicId = topicService.fetchByTopicName(topicName);
+            messages = messageService.fetchByTopicId(topicId);
+            topics = topicService.fetchAllTopics();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -59,9 +54,12 @@ public class RedCordController {
         }
         logger.trace("Accessed index method in RedCordController.");
         model.addAttribute("messages", messages);
+        model.addAttribute("topics", topics);
         model.addAttribute("messageEntry", new Message());
+        model.addAttribute("topicEntry", new Topic());
         return "start";
     }
+
 
     /**
      * Handle the root (/saveTopic) endpoint
@@ -76,38 +74,52 @@ public class RedCordController {
            logger.error("Error in saveTopic method: " + e.getMessage());
            e.printStackTrace();
        }
-       return "start";
+       return "redirect:/";
     }
 
+
+    /**
+     * Handle the /newMessage endpoint
+     * @return the newMessage.html location
+     */
     @GetMapping("/newMessage")
     public String newMessage(Model model) {
+        List<Topic> topics = null;
+        try {
+            topics = topicService.fetchAllTopics();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("topics", topics);
         model.addAttribute("messageEntry", new Message());
         model.addAttribute("topic", new Topic());
         return "newMessage";
     }
+
 
     /**
      * Handle the /saveMessage POST method endpoint
      * @return the start.html location
      */
     @PostMapping(value="/saveMessage")
-    //public String saveMessage(@ModelAttribute("messageEntry") Message messageEntry, Model model) {
-    public String saveMessage(@ModelAttribute("topic") Topic topic, @ModelAttribute("messageEntry") Message messageEntry, Model model) {
+    public String saveMessage(@ModelAttribute("topicEntry") String topicName, @ModelAttribute("messageEntry") Message messageEntry, Model model) {
         logger.trace("Accessed saveMessage method in RedCordController.");
-        //String searchTopic = model.getAttribute("topicId", messageEntry);
-        //String searchTopic = "";
         String topicId = null;
         Message newMessage = null;
         try {
-            topicId = topicService.fetchByTopicName(topic.getTopicName());
+            topicId = topicService.fetchByTopicName(topicName);
+            //topicId = topicService.fetchByTopicName(topic.getTopicName());
             messageEntry.setTopicId(topicId);
             newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
             logger.error("Error in saveMessage method: " + e.getMessage());
             e.printStackTrace();
         }
-        return "start";
+        return "redirect:/";
     }
+
 
     /**
      * Handle the /allMessages GET method endpoint
@@ -116,7 +128,6 @@ public class RedCordController {
     @GetMapping("/allMessages")
     @ResponseBody
     public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
-
         logger.trace("Accessed fetchAllMessages method in RedCordController.");
         try {
             return messageService.fetchAllMessages();
@@ -126,6 +137,7 @@ public class RedCordController {
             return null;
         }
     }
+
 
     /**
      * Handle the /searchJournalEntry GET method endpoint
@@ -169,6 +181,10 @@ public class RedCordController {
         }
     }
 
+    /**
+     * Handle the /messageByTopicId GET Method endpoint
+     * @return the JSON data page with the entries present matching the topic id
+     */
     @GetMapping("/messageByTopicId")
     public ResponseEntity fetchMessageByTopicId(@RequestParam Map<String, String> requestParams) {
         String topicId = "";
@@ -184,6 +200,7 @@ public class RedCordController {
         }
     }
 
+
     /**
      * Handle the /deleteJournalEntry GET Method endpoint
      * @return the JSON data page with all entries present excluding the deleted entry
@@ -198,17 +215,19 @@ public class RedCordController {
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
+
+    /**
+     * Handle the /messageThread endpoint
+     * @return the messageThread page populated with the messages object
+     */
     @GetMapping("/messageThread/{messageId}/")
     public ModelAndView messageThread(@PathVariable("messageId") String messageId) throws IOException, ExecutionException, InterruptedException {
-
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("MessageThread");
-            List<Message> messages = messageService.fetchById(messageId);
-            modelAndView.addObject("messages", messages);
-            return  modelAndView;
-
-        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("messageThread");
+        List<Message> messages = messageService.fetchById(messageId);
+        modelAndView.addObject("messages", messages);
+        return  modelAndView;
+    }
 }

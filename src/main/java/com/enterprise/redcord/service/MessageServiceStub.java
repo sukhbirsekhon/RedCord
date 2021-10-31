@@ -40,10 +40,6 @@ public class MessageServiceStub implements IMessageService{
     public List<Message> fetchById(String id) throws ExecutionException, InterruptedException, IOException {
         return messageDAO.fetchById(id);
     }
-    @Override
-    public List<Message> fetchMessageById(String id) throws ExecutionException, InterruptedException, IOException {
-        return messageDAO.fetchById(id);
-    }
 
     @Override
     public List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException, IOException {
