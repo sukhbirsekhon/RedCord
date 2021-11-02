@@ -153,13 +153,13 @@ public class RedCordController {
             model.addAttribute("messages", messages);
             return "searchedMessages";
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            logger.error("Error in searchMessageEntry method: " + e.getMessage());
             return "error";
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Error in searchMessageEntry method: " + e.getMessage());
             return "error";
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error in searchMessageEntry method: " + e.getMessage());
             return "error";
         }
     }
@@ -249,7 +249,6 @@ public class RedCordController {
                 allMessages.add(labelValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("Error in messageNameAutocomplete method: " + e.getMessage());
             return new ArrayList<LabelValue>();
 
