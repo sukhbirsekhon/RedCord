@@ -25,7 +25,8 @@ import java.util.concurrent.ExecutionException;
 @Controller
 public class RedCordController {
 
-    Logger logger = LoggerFactory.getLogger(RedCordController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(RedCordController.class);
 
     @Autowired
     ITopicService topicService;
