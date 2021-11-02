@@ -1,5 +1,6 @@
 package com.enterprise.redcord;
 
+import com.enterprise.redcord.dto.LabelValue;
 import com.enterprise.redcord.dto.Message;
 import com.enterprise.redcord.dto.Topic;
 import com.enterprise.redcord.service.IMessageService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -230,5 +232,30 @@ public class RedCordController {
         List<Message> messages = messageService.fetchById(messageId);
         modelAndView.addObject("messages", messages);
         return  modelAndView;
+    }
+    @GetMapping("/messageAutocomplete")
+    @ResponseBody
+    public List<LabelValue> messageNameAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {
+
+        List <LabelValue> allMessages= new ArrayList<LabelValue>();
+
+        try {
+            List<Message> messages = messageService.fetchEntry(term);
+            for (Message message : messages)
+            {
+                LabelValue labelValue= new LabelValue();
+                labelValue.setLabel(message.getMessage());
+                labelValue.setValue(message.getMessageId());
+                allMessages.add(labelValue);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("Error in messageNameAutocomplete method: " + e.getMessage());
+            return new ArrayList<LabelValue>();
+
+        }
+
+        return allMessages;
+
     }
 }
