@@ -127,14 +127,16 @@ public class RedCordController {
      */
     @GetMapping("/allMessages")
     @ResponseBody
-    public List<Message> fetchAllMessages() throws ExecutionException, InterruptedException {
+    public ResponseEntity fetchAllMessages() throws ExecutionException, InterruptedException {
         logger.trace("Accessed fetchAllMessages method in RedCordController.");
+        HttpHeaders headers = new HttpHeaders();
         try {
-            return messageService.fetchAllMessages();
+            List<Message> messages = messageService.fetchAllMessages();
+            return new ResponseEntity(messages, headers, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Error in fetchAllMessages method: " + e.getMessage());
             e.printStackTrace();
-            return null;
+            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
