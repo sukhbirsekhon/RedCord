@@ -47,14 +47,14 @@ public class RedCordController {
             topicId = topicService.fetchByTopicName(topicName);
             messages = messageService.fetchByTopicId(topicId);
             topics = topicService.fetchAllTopics();
+            model.addAttribute("messages", messages);
+            model.addAttribute("topics", topics);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         logger.trace("Accessed index method in RedCordController.");
-        model.addAttribute("messages", messages);
-        model.addAttribute("topics", topics);
         model.addAttribute("messageEntry", new Message());
         model.addAttribute("topicEntry", new Topic());
         return "start";
