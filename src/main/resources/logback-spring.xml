@@ -61,11 +61,4 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.myplantdiary.*" at TRACE level -->
-    <logger name="com.myplantdiary" level="trace" additivity="false">
-        <appender-ref ref="SevereRollingFile" />
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="Console" />
-    </logger>
-
 </configuration>
