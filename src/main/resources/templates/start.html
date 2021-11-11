@@ -102,7 +102,7 @@
         <div class="list-group" th:each="message : ${messages}">
             <div class="list-group" th:each="title : ${message['title']}">
                 <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"
-                   class="list-group-item list-group-item-secondary">
+                   class="list-group-item list-group-item-action list-group-item-secondary">
                     <p th:text="${title}"/>
                 </a>
             </div>

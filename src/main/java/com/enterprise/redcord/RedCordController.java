@@ -34,6 +34,7 @@ public class RedCordController {
     IMessageService messageService;
 
 
+
     /**
      * Handle the root (/) endpoint
      * @return the start.html location
