@@ -17,29 +17,32 @@
 
         <div th:replace="fragments/topnav :: navbar"></div>
 
-        <br /><br /><br /><br />
+        <div class="row" style="margin-left: 50px">
+            <div class="col">
+                <form style="display: inline-block" action="#" th:action="@{/}" th:object="${topicEntry}" method="get" >
+                    <select th:name="topicEntry">
+                        <div class="list-group" th:each="topic : ${topics}">
+                            <div class="list-group" th:each="topicNames : ${topic['topicName']}">
+                                <option th:value="${topicNames}" th:text="${topicNames}" th:selected="${topicNames=='Movies'}"></option>
+                            </div>
+                        </div>
+                    </select>
+                    <button name="submit" class="btn btn-dark" type="submit" value="0">Go To Topic</button>
+                </form>
+            </div>
+
+            <div class="col">
+                <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
+                    <button name="submit" type="submit" value="0" class="btn btn-dark">View All Messages</button>
+                </form>
+            </div>
+            <div class="w-100"></div>
+        </div>
+
         <div class="outer">
             <div class="inner">
 
-
-                <form style="display: inline-block" action="#" th:action="@{/}" th:object="${topicEntry}" method="get" >
-                <select th:name="topicEntry">
-                    <div class="list-group" th:each="topic : ${topics}">
-                        <div class="list-group" th:each="topicNames : ${topic['topicName']}">
-                            <option th:value="${topicNames}" th:text="${topicNames}" th:selected="${topicNames=='Movies'}"></option>
-                        </div>
-                    </div>
-                </select>
-                    <button name="submit" type="submit" value="0">Go To Topic</button>
-                </form>
-
-                <br /><br /><br /><br />
-                <form style="display: inline-block" action="#" th:action="@{/allMessages}" th:object="${messageEntry}" method="get" >
-                    <button name="submit" type="submit" value="0">View All Messages</button>
-                </form>
-
-                <br /><br /><br /><br />
-                <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get">
+                <form action="#" th:action="@{/messageById}" th:object="${messageEntry}" method="get" hidden>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="messageById">Enter Message Id</span>
                         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{messageId}">
@@ -47,8 +50,7 @@
                     <button name="submit" type="submit" value="0">Find Message by Id</button>
                 </form>
 
-                <br /><br /><br /><br />
-                <form action="#" th:action="@{/messageByTopicId}" th:object="${messageEntry}" method="get">
+                <form action="#" th:action="@{/messageByTopicId}" th:object="${messageEntry}" method="get" hidden>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="messageByTopicId">Enter Topic Id</span>
                         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="messageById" th:field="*{topicId}">
@@ -56,8 +58,7 @@
                     <button name="submit" type="submit" value="0">Find Message by Topic Id</button>
                 </form>
 
-                <br /><br /><br /><br />
-                <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post">
+                <form action="#" th:action="@{/deleteMessage}" th:object="${messageEntry}" method="post" hidden>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="deleteMessageById">Enter Message Id</span>
                         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="deleteMessageById" th:field="*{messageId}">
@@ -67,12 +68,15 @@
             </div>
         </div>
 
-        <br /><br /><br /><br />
-        <div class="list-group" th:each="message : ${messages}">
-            <div class="list-group" th:each="title : ${message['title']}">
-                <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}" class="list-group-item list-group-item-action">
-                    <p th:text="${title}"/>
-                </a>
+        <br />
+        <div style="margin-left: 50px; margin-right: 50px">
+            <div class="list-group" th:each="message : ${messages}">
+                <div class="list-group" th:each="title : ${message['title']}">
+                    <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <p th:text="${title}"/>
+                        <span class="badge bg-light">Delete</span>
+                    </a>
+                </div>
             </div>
         </div>
 
