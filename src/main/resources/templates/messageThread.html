@@ -15,22 +15,25 @@
     <body>
         <div th:replace="fragments/topnav :: navbar"></div>
 
-        <br /><br />
 
-        <div class="outer">
-            <div class="inner">
-
-                <br /><br />
-                <div th:each="messageEntry : ${messages}">
-                    <span>Title</span>
-                    <p th:text="${messageEntry['title']}"/>
-                    <br />
-                    <span>Message</span>
-                    <p th:text="${messageEntry['message']}"/>
-
+        <div class="list-group" th:each="messageEntry : ${messages}" style="max-width:80%; margin:3% 3% 3% 3%;">
+            <div class="list-group">
+                <div class="card border-success ">
+                    <div class="card-header">
+                        <label>Title</label>   <p th:text="${messageEntry['title']}"/>
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <label>Message</label>
+                            <p th:text="${messageEntry['message']}"/>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
 
     </body>
 </html>
