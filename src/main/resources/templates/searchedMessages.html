@@ -15,17 +15,28 @@
 <body>
 <div th:replace="fragments/topnav :: navbar"></div>
 
-<br/><br/><br/><br/>
-A list of messages.
-<br/><br/><br/><br/>
+<p style="max-width:80%; margin:3% 3% 3% 3%;"> Search for your message. </p>
 
+<div class="list-group" th:each="message : ${messages}" style="max-width:80%; margin:3% 3% 3% 3%;">
 
-<div class="list-group" th:each="message : ${messages}">
     <div class="list-group" th:each="title : ${message['title']}">
-        <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
-            <p th:text="${title}"/>
-        </a>
+
+        <div class="card border-success ">
+            <div class="card-header">
+              <label>Title</label>  <p th:text="${message.message}"/>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <label>Message</label>  <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
+                        <p th:text="${title}"/>
+                    </a>
+
+                </blockquote>
+            </div>
+        </div>
+
     </div>
+
 </div>
 
 </body>
