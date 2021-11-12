@@ -74,7 +74,7 @@
                 <div class="list-group" th:each="title : ${message['title']}">
                     <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <p th:text="${title}"/>
-                        <span class="badge bg-light">Delete</span>
+                        <span class="badge bg-light" style="color: black">Delete</span>
                     </a>
                 </div>
             </div>
