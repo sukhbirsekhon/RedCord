@@ -11,6 +11,15 @@
 
     <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>RedCord - Search</title>
+
+
+
+    <script th:inline="javascript">
+        function enableFields() {
+            document.getElementById("titleField").disabled = false;
+            document.getElementById("messageField").disabled = false;
+        }
+    </script>
 </head>
     <body>
         <div th:replace="fragments/topnav :: navbar"></div>
@@ -19,16 +28,23 @@
 
         <div class="outer">
             <div class="inner">
-
-                <br /><br />
                 <div th:each="messageEntry : ${messages}">
-                    <span>Title</span>
-                    <p th:text="${messageEntry['title']}"/>
-                    <br />
-                    <span>Message</span>
-                    <p th:text="${messageEntry['message']}"/>
-
+                <form id="deleteMessage" action="#" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
+                    <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="title">Title</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" th:disabled="true" id="titleField" name="title" th:value="${messageEntry.title}" >
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="message">Message</span>
+                            <textarea class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="20" cols="100" th:disabled="true" id="messageField" name="message" th:text="${messageEntry.message}" ></textarea>
+                    </div>
+                </form>
+                    <button name="action" type="submit" value="edit" id="edit" th:onclick="enableFields()" >Edit</button>
+                    <button name="action" type="submit" value="update" th:formaction="'/updateMessageThread'">Update Message</button>
+                    <button name="action" type="submit" value="cancel" th:formaction="'/cancelUpdateMessageThread'">Cancel</button>
+                    <button name="action" type="submit" value="delete" form="deleteMessage">Delete Message</button>
                 </div>
+
             </div>
         </div>
 
