@@ -110,7 +110,6 @@ public class RedCordController {
         Message newMessage = null;
         try {
             topicId = topicService.fetchByTopicName(topicName);
-            //topicId = topicService.fetchByTopicName(topic.getTopicName());
             messageEntry.setTopicId(topicId);
             newMessage = messageService.saveMessage(messageEntry);
         }catch(Exception e){
@@ -217,6 +216,20 @@ public class RedCordController {
         }
     }
 
+    /**
+     * Handle the /deleteJournalEntry GET Method endpoint
+     * @return the JSON data page with all entries present excluding the deleted entry
+     */
+    @PostMapping(value="/deleteMessage/{messageId}/")
+    public ResponseEntity deleteMessageById(@PathVariable("messageId") String messageId) {
+        try {
+            messageService.delete(messageId);
+            return new ResponseEntity(messageService.fetchAllMessages(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     /**
      * Handle the /messageThread endpoint
@@ -228,6 +241,36 @@ public class RedCordController {
         modelAndView.setViewName("messageThread");
         List<Message> messages = messageService.fetchById(messageId);
         modelAndView.addObject("messages", messages);
+        modelAndView.addObject("messageUpdate", new Message());
         return  modelAndView;
+    }
+
+
+    @PostMapping("/updateMessageThread")
+    public String updateMessageThread(@RequestParam("title") String messageTitle, @RequestParam("message") String message , Model model) throws IOException, ExecutionException, InterruptedException {
+        logger.trace("Accessed updateMessageThread method in RedCordController.");
+        Message updateMessage = null;
+        try {
+            //updateMessage = messageService.saveMessage(messageEntry);
+            //updateMessage = messageService.updateMessage(messageEntry);
+        }catch(Exception e){
+            logger.error("Error in updateMessageThread method: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return "redirect:/messageThread/{messageId}/";
+    }
+
+    @PostMapping("/cancelUpdateMessageThread")
+    public String cancelUpdateMessageThread(@ModelAttribute("messageEntry") Message messageEntry, Model model) throws IOException, ExecutionException, InterruptedException {
+        logger.trace("Accessed updateMessageThread method in RedCordController.");
+        //Message updateMessage = null;
+        try {
+            //updateMessage = messageService.saveMessage(messageEntry);
+            //updateMessage = messageService.updateMessage(messageEntry);
+        }catch(Exception e){
+            logger.error("Error in updateMessageThread method: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return "redirect:/messageThread/{messageId}/";
     }
 }
