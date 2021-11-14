@@ -233,13 +233,14 @@ public class RedCordController {
      * @return the JSON data page with all entries present excluding the deleted entry
      */
     @PostMapping(value="/deleteMessage/{messageId}/")
-    public ResponseEntity deleteMessageById(@PathVariable("messageId") String messageId) {
+    public String deleteMessageById(@PathVariable("messageId") String messageId) {
+        logger.trace("Accessed deleteMessageById method in RedCordController.");
         try {
             messageService.delete(messageId);
-            return new ResponseEntity("redirect:/", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch(Exception e){
+            logger.error("Error in deleteMessageById method: " + e.getMessage());
         }
+        return "redirect:/";
     }
 
 
