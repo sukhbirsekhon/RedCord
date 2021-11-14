@@ -56,4 +56,9 @@ public class MessageServiceStub implements IMessageService{
         messageDAO.delete(id);
     }
 
+    @Override
+    public List<Message> updateEntryById(String messageId, String messageTitle, String message) throws ExecutionException, InterruptedException {
+        return messageDAO.updateEntryById(messageId, messageTitle, message);
+    }
+
 }

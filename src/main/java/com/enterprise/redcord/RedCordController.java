@@ -35,7 +35,8 @@ public class RedCordController {
 
 
     /**
-     * Handle the root (/) endpoint
+     * Handles the root (/) endpoint
+     * Sets the root (/) page with object attributes
      * @return the start.html location
      */
     @RequestMapping( "/")
@@ -62,8 +63,9 @@ public class RedCordController {
 
 
     /**
-     * Handle the root (/saveTopic) endpoint
-     * @return the start.html location
+     * Handles the /saveTopic endpoint
+     * Saves a new topic with provided topic information from the database through the message service and DAO
+     * @return a redirect to the root (/) endpoint
      */
     @RequestMapping("/saveTopic")
     public String saveTopic(Topic topic) {
@@ -79,7 +81,8 @@ public class RedCordController {
 
 
     /**
-     * Handle the /newMessage endpoint
+     * Handles the /newMessage GET method endpoint
+     * Sets the newMessage.html page with object attributes
      * @return the newMessage.html location
      */
     @GetMapping("/newMessage")
@@ -100,8 +103,9 @@ public class RedCordController {
 
 
     /**
-     * Handle the /saveMessage POST method endpoint
-     * @return the start.html location
+     * Handles the /saveMessage POST method endpoint
+     * Saves a message entry with provided message information in the model attributes from the database through the message service and DAO
+     * @return a redirect to the root (/) endpoint
      */
     @PostMapping(value="/saveMessage")
     public String saveMessage(@ModelAttribute("topicEntry") String topicName, @ModelAttribute("messageEntry") Message messageEntry, Model model) {
@@ -121,7 +125,8 @@ public class RedCordController {
 
 
     /**
-     * Handle the /allMessages GET method endpoint
+     * Handles the /allMessages GET method endpoint
+     * Retrieves all message entries from the database through the message service and DAO
      * @return the JSON data page with all entries present
      */
     @GetMapping("/allMessages")
@@ -139,8 +144,9 @@ public class RedCordController {
 
 
     /**
-     * Handle the /searchJournalEntry GET method endpoint
-     * @return results of the user input for search field
+     * Handles the /searchMessageEntry GET method endpoint
+     * Retrieves all message entries with matching search text from the database through the message service and DAO
+     * @return all message entries that are a result of the user input for the search field
      */
     @GetMapping("/searchMessageEntry")
     public String searchEntry(@RequestParam(value="searchEntry", required = false, defaultValue="None") String searchEntry, Model model) {
@@ -162,8 +168,9 @@ public class RedCordController {
 
 
     /**
-     * Handle the /journalEntryById GET method endpoint
-     * @return the JSON data page with only the requested journal entry present
+     * Handles the /messageById GET method endpoint
+     * Retrieves a message entry with provided message information in the requestParams from the database through the message service and DAO
+     * @return the JSON data page with the entries present matching the message id
      */
     @GetMapping("/messageById")
     public ResponseEntity fetchMessageById(@RequestParam Map<String, String> requestParams) {
@@ -180,8 +187,10 @@ public class RedCordController {
         }
     }
 
+
     /**
-     * Handle the /messageByTopicId GET Method endpoint
+     * Handles the /messageByTopicId GET Method endpoint
+     * Retrieves a message entry with provided topic id from the database through the message service and DAO
      * @return the JSON data page with the entries present matching the topic id
      */
     @GetMapping("/messageByTopicId")
@@ -201,7 +210,8 @@ public class RedCordController {
 
 
     /**
-     * Handle the /deleteJournalEntry GET Method endpoint
+     * Handles the /deleteMessage POST Method endpoint
+     * Deletes a message entry with provided message information in the requestParams from the database through the message service and DAO
      * @return the JSON data page with all entries present excluding the deleted entry
      */
     @PostMapping(value="/deleteMessage")
@@ -216,15 +226,17 @@ public class RedCordController {
         }
     }
 
+
     /**
-     * Handle the /deleteJournalEntry GET Method endpoint
+     * Handles the /deleteMessage/{messageId}/ POST Method endpoint
+     * Deletes a message entry with provided message id from the database through the message service and DAO
      * @return the JSON data page with all entries present excluding the deleted entry
      */
     @PostMapping(value="/deleteMessage/{messageId}/")
     public ResponseEntity deleteMessageById(@PathVariable("messageId") String messageId) {
         try {
             messageService.delete(messageId);
-            return new ResponseEntity(messageService.fetchAllMessages(), HttpStatus.OK);
+            return new ResponseEntity("redirect:/", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -232,7 +244,8 @@ public class RedCordController {
 
 
     /**
-     * Handle the /messageThread endpoint
+     * Handles the /messageThread GET Method endpoint
+     * Retrieves a message entry with provided message id from the database through the message service and DAO
      * @return the messageThread page populated with the messages object
      */
     @GetMapping("/messageThread/{messageId}/")
@@ -246,13 +259,17 @@ public class RedCordController {
     }
 
 
-    @PostMapping("/updateMessageThread")
-    public String updateMessageThread(@RequestParam("title") String messageTitle, @RequestParam("message") String message , Model model) throws IOException, ExecutionException, InterruptedException {
+    /**
+     * Handles the /updateMessageThread/{messageId}/ POST Method endpoint
+     * Updates the message entry in the database through the message service and DAO
+     * @return a redirect to the messageThread page populated with the updated messages object
+     */
+    @PostMapping("/updateMessageThread/{messageId}/")
+    public String updateMessageThread(@RequestParam("title") String messageTitle, @RequestParam("message") String message, @PathVariable("messageId") String messageId, Model model) throws IOException, ExecutionException, InterruptedException {
         logger.trace("Accessed updateMessageThread method in RedCordController.");
-        Message updateMessage = null;
+        List<Message> updateMessage = null;
         try {
-            //updateMessage = messageService.saveMessage(messageEntry);
-            //updateMessage = messageService.updateMessage(messageEntry);
+            updateMessage = messageService.updateEntryById(messageId, messageTitle, message);
         }catch(Exception e){
             logger.error("Error in updateMessageThread method: " + e.getMessage());
             e.printStackTrace();
@@ -260,17 +277,14 @@ public class RedCordController {
         return "redirect:/messageThread/{messageId}/";
     }
 
-    @PostMapping("/cancelUpdateMessageThread")
-    public String cancelUpdateMessageThread(@ModelAttribute("messageEntry") Message messageEntry, Model model) throws IOException, ExecutionException, InterruptedException {
-        logger.trace("Accessed updateMessageThread method in RedCordController.");
-        //Message updateMessage = null;
-        try {
-            //updateMessage = messageService.saveMessage(messageEntry);
-            //updateMessage = messageService.updateMessage(messageEntry);
-        }catch(Exception e){
-            logger.error("Error in updateMessageThread method: " + e.getMessage());
-            e.printStackTrace();
-        }
+
+    /**
+     * Handles the /cancelUpdateMessageThread/{messageId}/ POST Method endpoint
+     * Cancels the update initiation and reverts message back to previous saved version
+     * @return a redirect to the messageThread page populated with the unaltered message object
+     */
+    @PostMapping("/cancelUpdateMessageThread/{messageId}/")
+    public String cancelUpdateMessageThread(@PathVariable("messageId") String messageId, Model model) {
         return "redirect:/messageThread/{messageId}/";
     }
 }

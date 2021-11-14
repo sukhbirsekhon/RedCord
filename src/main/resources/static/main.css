@@ -15,6 +15,7 @@
 .inner {
     text-align: left;
 }
+
 .innerSearch {
     border: 2px solid #00A4BD;
     text-align: right;
@@ -28,6 +29,10 @@
 
 .dateLabel {
     padding-right: 60px;
+}
+
+.inlineButtonDisplay{
+    display: inline-block;
 }
 
 

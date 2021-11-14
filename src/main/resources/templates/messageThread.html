@@ -12,41 +12,48 @@
     <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>RedCord - Search</title>
 
-
-
     <script th:inline="javascript">
         function enableFields() {
             document.getElementById("titleField").disabled = false;
             document.getElementById("messageField").disabled = false;
+            document.getElementById("update").hidden = false;
+            document.getElementById("cancel").hidden = false;
         }
     </script>
 </head>
     <body>
         <div th:replace="fragments/topnav :: navbar"></div>
 
-        <br /><br />
-
-        <div class="outer">
-            <div class="inner">
-                <div th:each="messageEntry : ${messages}">
-                <form id="deleteMessage" action="#" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
-                    <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" id="title">Title</span>
+        <div class="list-group" th:each="messageEntry : ${messages}" style="max-width:80%; margin:3% 3% 3% 3%;">
+            <div class="list-group">
+                <form id="messageEntry" action="#" th:action="@{'/updateMessageThread/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
+                    <div class="card border-success ">
+                        <div class="card-header">
+                            <label id="lblTitle">Title</label>
                             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" th:disabled="true" id="titleField" name="title" th:value="${messageEntry.title}" >
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" id="message">Message</span>
-                            <textarea class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="20" cols="100" th:disabled="true" id="messageField" name="message" th:text="${messageEntry.message}" ></textarea>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <label id="message">Message</label>
+                                <textarea class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="5" cols="50" th:disabled="true" id="messageField" name="message" th:text="${messageEntry.message}" ></textarea>
+                            </blockquote>
+                        </div>
                     </div>
                 </form>
-                    <button name="action" type="submit" value="edit" id="edit" th:onclick="enableFields()" >Edit</button>
-                    <button name="action" type="submit" value="update" th:formaction="'/updateMessageThread'">Update Message</button>
-                    <button name="action" type="submit" value="cancel" th:formaction="'/cancelUpdateMessageThread'">Cancel</button>
-                    <button name="action" type="submit" value="delete" form="deleteMessage">Delete Message</button>
-                </div>
+            </div>
 
+            <div style="max-width:80%; margin:3% 3% 3% 3%;">
+                <button name="action" type="submit" value="edit" id="edit" class="btn btn-warning" th:onclick="enableFields()" >Edit</button>
+                <button name="action" type="submit" value="update" id="update" class="btn btn-success" th:hidden="true" form="messageEntry">Update Message</button>
+
+                <form class="inlineButtonDisplay" action="#" th:action="@{'/cancelUpdateMessageThread/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
+                    <button name="action" type="submit" value="cancel" class="btn btn-secondary" id="cancel" th:hidden="true">Cancel</button>
+                </form>
+
+                <form id="deleteMessage" class="inlineButtonDisplay" action="#" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
+                    <button name="action" type="submit" value="delete" class="btn btn-danger" form="deleteMessage">Delete Message</button>
+                </form>
             </div>
         </div>
-
     </body>
 </html>
