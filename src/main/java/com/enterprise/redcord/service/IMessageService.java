@@ -53,4 +53,6 @@ public interface IMessageService {
      * @param id is the entry to delete.
      */
     void delete(String id) throws Exception;
+
+    List<Message> updateEntryById(String messageId, String messageTitle, String message) throws ExecutionException, InterruptedException;
 }

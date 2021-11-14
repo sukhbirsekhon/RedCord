@@ -49,4 +49,6 @@ public interface IMessageDAO {
      * @param id is the id of a topic.
      */
     List<Message> fetchByTopicId(String id) throws ExecutionException, InterruptedException;
+
+    List<Message> updateEntryById(String messageId, String messageTitle, String message) throws ExecutionException, InterruptedException;
 }

@@ -224,7 +224,8 @@ public class RedCordController {
     public ResponseEntity deleteMessageById(@PathVariable("messageId") String messageId) {
         try {
             messageService.delete(messageId);
-            return new ResponseEntity(messageService.fetchAllMessages(), HttpStatus.OK);
+            //return new ResponseEntity(messageService.fetchAllMessages(), HttpStatus.OK);
+            return new ResponseEntity("redirect:/", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -246,22 +247,23 @@ public class RedCordController {
     }
 
 
-    @PostMapping("/updateMessageThread")
-    public String updateMessageThread(@RequestParam("title") String messageTitle, @RequestParam("message") String message , Model model) throws IOException, ExecutionException, InterruptedException {
+    @PostMapping("/updateMessageThread/{messageId}/")
+    public String updateMessageThread(@RequestParam("title") String messageTitle, @RequestParam("message") String message, @PathVariable("messageId") String messageId, Model model) throws IOException, ExecutionException, InterruptedException {
         logger.trace("Accessed updateMessageThread method in RedCordController.");
-        Message updateMessage = null;
+        List<Message> updateMessage = null;
         try {
-            //updateMessage = messageService.saveMessage(messageEntry);
+            updateMessage = messageService.updateEntryById(messageId, messageTitle, message);
             //updateMessage = messageService.updateMessage(messageEntry);
         }catch(Exception e){
             logger.error("Error in updateMessageThread method: " + e.getMessage());
             e.printStackTrace();
         }
+        //return "redirect:/messageThread/{messageId}/";
         return "redirect:/messageThread/{messageId}/";
     }
 
-    @PostMapping("/cancelUpdateMessageThread")
-    public String cancelUpdateMessageThread(@ModelAttribute("messageEntry") Message messageEntry, Model model) throws IOException, ExecutionException, InterruptedException {
+    @PostMapping("/cancelUpdateMessageThread/{messageId}/")
+    public String cancelUpdateMessageThread(@PathVariable("messageId") String messageId, Model model) throws IOException, ExecutionException, InterruptedException {
         logger.trace("Accessed updateMessageThread method in RedCordController.");
         //Message updateMessage = null;
         try {
