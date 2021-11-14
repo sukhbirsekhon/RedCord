@@ -12,8 +12,6 @@
     <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>RedCord - Search</title>
 
-
-
     <script th:inline="javascript">
         function enableFields() {
             document.getElementById("titleField").disabled = false;
@@ -31,7 +29,6 @@
         <div class="outer">
             <div class="inner">
                 <div th:each="messageEntry : ${messages}">
-                <!--<form id="messageEntry" action="#" th:action="@{'/cancelUpdateMessageThread'}" th:object="${messageUpdate}" method="post">-->
                 <form id="messageEntry" action="#" th:action="@{'/updateMessageThread/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
                     <div class="input-group input-group-sm mb-3">
                             <span class="input-group-text" id="title">Title</span>
@@ -41,23 +38,10 @@
                             <span class="input-group-text" id="message">Message</span>
                             <textarea class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="20" cols="100" th:disabled="true" id="messageField" name="message" th:text="${messageEntry.message}" ></textarea>
                     </div>
-
                 </form>
-<!--
-                    <button name="action" type="submit" value="edit" id="edit" th:onclick="enableFields()" >Edit</button>
-                    <button name="action" type="submit" value="update" id="update" th:hidden="true" form="messageEntry" th:action="@{'/updateMessageThread'}">Update Message</button>
-                    <button name="action" type="submit" value="cancel" id="cancel" th:hidden="true" form="messageEntry" th:action="@{'/cancelUpdateMessageThread'}">Cancel</button>
-                    <button name="action" type="submit" value="delete" form="messageEntry" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}">Delete Message</button>
--->
                     <button name="action" type="submit" value="edit" id="edit" th:onclick="enableFields()" >Edit</button>
                     <button name="action" type="submit" value="update" id="update" th:hidden="true" form="messageEntry">Update Message</button>
-<!--
-                    <button name="action" type="submit" value="cancel" id="cancel" th:hidden="true" th:form="messageEntry" th:action="@{'/cancelUpdateMessageThread'}">Cancel</button>
-                    <button name="action" type="submit" value="delete" th:form="messageEntry" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}">Delete Message</button>
--->
 
-
-                    <!--<form action="#" th:action="@{'/cancelUpdateMessageThread'}" th:object="${messageUpdate}" method="post">-->
                     <form class="inlineButtonDisplay" action="#" th:action="@{'/cancelUpdateMessageThread/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
                         <button name="action" type="submit" value="cancel" id="cancel" th:hidden="true">Cancel</button>
                     </form>
