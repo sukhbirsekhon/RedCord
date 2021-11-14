@@ -43,15 +43,15 @@
             </div>
 
             <div style="max-width:80%; margin:3% 3% 3% 3%;">
-                <button name="action" type="submit" value="edit" id="edit" th:onclick="enableFields()" >Edit</button>
-                <button name="action" type="submit" value="update" id="update" th:hidden="true" form="messageEntry">Update Message</button>
+                <button name="action" type="submit" value="edit" id="edit" class="btn btn-warning" th:onclick="enableFields()" >Edit</button>
+                <button name="action" type="submit" value="update" id="update" class="btn btn-success" th:hidden="true" form="messageEntry">Update Message</button>
 
                 <form class="inlineButtonDisplay" action="#" th:action="@{'/cancelUpdateMessageThread/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
-                    <button name="action" type="submit" value="cancel" id="cancel" th:hidden="true">Cancel</button>
+                    <button name="action" type="submit" value="cancel" class="btn btn-secondary" id="cancel" th:hidden="true">Cancel</button>
                 </form>
 
                 <form id="deleteMessage" class="inlineButtonDisplay" action="#" th:action="@{'/deleteMessage/' + ${messageEntry.messageId} + '/'}" th:object="${messageUpdate}" method="post">
-                    <button name="action" type="submit" value="delete" form="deleteMessage">Delete Message</button>
+                    <button name="action" type="submit" value="delete" class="btn btn-danger" form="deleteMessage">Delete Message</button>
                 </form>
             </div>
         </div>
