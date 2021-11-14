@@ -15,32 +15,49 @@
         <div th:replace="fragments/topnav :: navbar"></div>
         <br /><br /><br /><br />
 
-        <div class="outer">
-            <div class="inner">
-
+        <div class="container border border-success rounded" style="max-width:75%">
+            <div class="form-block" style="margin:3% 3% 3% 3%">
+                <div class="row">
                 <form action="#" th:action="@{/saveMessage}" th:object="${messageEntry}" method="post">
 
-                    <select th:name="topicEntry">
-                        <div class="list-group" th:each="topic : ${topics}">
-                            <div class="list-group" th:each="topicNames : ${topic['topicName']}">
-                                <option th:value="${topicNames}" th:text="${topicNames}" th:selected="${topicNames=='Movies'}"></option>
-                            </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="row">
+                            <label class="" id="">Select Topic</label>
                         </div>
-                    </select>
-                    <br /><br /><br /><br />
+                        <div  class="row">
+                            <select th:name="topicEntry">
+                                <div class="list-group" th:each="topic : ${topics}">
+                                    <div class="list-group" th:each="topicNames : ${topic['topicName']}">
+                                      <span> Select Topic</span>  <option th:value="${topicNames}" th:text="${topicNames}" th:selected="${topicNames=='Movies'}"></option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <label class="" id="title">Title</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title" th:field="*{title}">
+                        </div>
 
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="title">Title</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title" th:field="*{title}">
                     </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="message">Message</span>
-                        <textarea class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="20" cols="100" name="message" th:field="*{message}"></textarea>
-                    </div>
-                    <br /><br />
-                    <button name="submit" type="submit" value="0">Post Entry</button>
+
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <label class="" id="message">Message</label>
+                        </div>
+                        <div class="row">
+                            <textarea  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" rows="4" cols="50" name="message" th:field="*{message}"></textarea>
+
+                        </div>
+                           </div>
+
+                    <br />
+                    <button class="btn btn-success" name="submit" type="submit" value="0">Post Entry</button>
                 </form>
-
+                </div>
             </div>
         </div>
 

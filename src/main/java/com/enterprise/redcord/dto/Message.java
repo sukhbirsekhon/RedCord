@@ -3,8 +3,8 @@ package com.enterprise.redcord.dto;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
 
 public @Data
 class Message {
@@ -19,8 +19,8 @@ class Message {
      @SerializedName("topicId")
      private String topicId;
 
-     @ManyToOne
-     @JoinColumn(name="topicId")
+    // @ManyToOne
+    // @JoinColumn(name="topicId")
      private Topic topic;
 
      public String toString(){
