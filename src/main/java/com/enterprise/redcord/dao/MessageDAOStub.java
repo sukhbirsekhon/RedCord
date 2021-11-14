@@ -94,11 +94,9 @@ public class MessageDAOStub implements IMessageDAO{
     public List<Message> updateEntryById(String messageId, String messageTitle, String message) throws ExecutionException, InterruptedException {
         Map<String, Object> allMessages = new HashMap<>();
         Firestore dbFirestore = FirestoreClient.getFirestore();
-
         DocumentReference docRef = dbFirestore.collection("Messages").document(messageId);
         ApiFuture<WriteResult> futureTitle = docRef.update("title", messageTitle);
         ApiFuture<WriteResult> futureMessage = docRef.update("message", message);
-
         return fetchById(messageId);
     }
 }
