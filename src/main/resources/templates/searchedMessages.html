@@ -23,12 +23,12 @@
 
         <div class="card border-success ">
             <div class="card-header">
-              <label>Title</label>  <p th:text="${message.message}"/>
+              <label>Title</label>  <p th:text="${title}"/>
             </div>
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <label>Message</label>  <a th:href="@{'/messageThread/' + ${message.messageId} + '/'}"  class="list-group-item list-group-item-action">
-                        <p th:text="${title}"/>
+                        <p th:text="${message.message}"/>
                     </a>
 
                 </blockquote>
