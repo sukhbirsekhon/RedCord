@@ -53,6 +53,7 @@ public class MessageServiceStub implements IMessageService{
 
     @Override
     public void delete(String id) {
+
         messageDAO.delete(id);
     }
 

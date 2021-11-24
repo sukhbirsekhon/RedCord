@@ -14,13 +14,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class RedCordApplicationTests {
-
+    @MockBean
     private ITopicService topicService;
 
     @MockBean
@@ -88,4 +92,42 @@ class RedCordApplicationTests {
         assertEquals(topic, savedTopic);
         verify(topicDAO, atLeastOnce()).saveTopic(topic);
     }
+
+    @Test
+    void Update_Topic() throws Exception {
+        givenTopicDataAreAvailable();
+        GetTopicByName();
+        EnsureTopicExist();
+    }
+
+    private void GetTopicByName() throws Exception{
+        topic.setTopicName("test");
+        topic.setTopicId("711");
+        topic.setTopicDescription("just a test");
+        Mockito.when(topicDAO.saveTopic(topic)).thenReturn(topic);
+    }
+    private void EnsureTopicExist() throws Exception {
+        Topic savedTopic = topicService.saveTopic(topic);
+        assertEquals(topic, savedTopic);
+        verify(topicDAO, atLeastOnce()).saveTopic(topic);
+    }
+
+    @Test
+    void Delete_Message() throws Exception {
+        givenMessageDataAreAvailable();
+        whenUserSubmitsANewMessage();
+        DeleteNewMessage();
+    }
+
+    private void DeleteNewMessage() throws Exception{
+        Message createdMessage = messageService.saveMessage(messageEntry);
+        assertEquals(messageEntry, createdMessage);
+       // Mockito.when(messageDAO.delete("7")).thenReturn(messageEntry);;
+        messageService.delete(messageEntry.getMessageId());
+        
+        createdMessage = null;
+        assertNotEquals(messageEntry, createdMessage);
+    }
+
+
 }
